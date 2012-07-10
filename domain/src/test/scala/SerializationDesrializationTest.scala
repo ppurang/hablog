@@ -23,7 +23,7 @@ object Fixtures {
   def json = {
     """
       |{
-      |    "uuid":"8aac796b-e3f4-4e89-8b23-735110f8c3ba",
+      |    "uid":"8aac796b-e3f4-4e89-8b23-735110f8c3ba",
       |    "state":"Nascent",
       |    "created":{
       |        "time":35255716153154

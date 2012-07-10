@@ -56,12 +56,12 @@ object UUIDSerializer extends Serializer[UUID] {
 
   def deserialize(implicit format: Formats): PartialFunction[(TypeInfo, JValue), UUID] = {
     case (TypeInfo(UUIDClass, _), json) => json match {
-      case JString(x) => x: UUID
+      case JString(x) => UUID.fromString(x)
       case x => throw new MappingException("Can't convert " + x + " to UUID")
     }
   }
 
   def serialize(implicit format: Formats): PartialFunction[Any, JValue] = {
-    case x: UUID => JString(x)
+    case x: UUID => JString(x.toString)
   }
 }

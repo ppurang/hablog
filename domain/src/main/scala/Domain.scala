@@ -1,29 +1,33 @@
 package org.purang.blog.domain
 
 import java.util.UUID
-import annotation.switch
-import java.net.URLEncoder
 
 object `package` {
-  type CreateUnique[T] = UUID => Unique[T]
+  type UniqueId = String
+
+  type IdGenerator = String => UniqueId
+
+  type CreateUnique[T] = UniqueId => Unique[T]
   val CreateUnique = Unique
 
-  implicit def string2uuid[B](uuidString: String): UUID = UUID.fromString(uuidString)
-  implicit def uuid2string[B](uuid: UUID): String = uuid.toString
+  implicit def string2UniqueId[B](hint: String): UniqueId =  encode(hint).take(20) + "_" + UUID.randomUUID().toString
+
+  def encode = replaceWith(Map(" " -> "-" , "*" -> "_star_", "!" -> "_bang_", "&" -> "_and_"))
+
+  def replaceWith: Map[String, String] => String => String = m => s => s.map(c => m.getOrElse(c.toString, c)).mkString("")
 
 }
 
 trait Unique[+A] {
-  def uuid: UUID
+  def uid: UniqueId
 }
 
 object Unique {
-  private case class AnyUnique[A](uuid: UUID) extends Unique[A]
+  private case class AnyUnique[A](uid: String) extends Unique[A]
 
-  def apply[B](uuid: UUID): Unique[B] = AnyUnique[B](uuid)
   def apply[B](uuidString: String): Unique[B] = AnyUnique[B](uuidString)
 
-  def unapply[B](unique: Unique[B]) = unique.uuid
+  def unapply[B](unique: Unique[B]): UniqueId = unique.uid
 }
 
 
@@ -63,7 +67,7 @@ object InitialDisLike extends Rating(0,1)
 case class User(twitterÍd: String)
 case class Comment(user: User, text: String, created: Created, replies: List[Comment])
 
-case class BlogEntry(uuid: UUID = UUID.randomUUID(),
+case class BlogEntry(uid: UniqueId = UUID.randomUUID().toString,
                      state: BlogState = Nascent,
                      created: Created,
                      modified: Option[Modified] = None,
