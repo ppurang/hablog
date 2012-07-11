@@ -8,6 +8,7 @@ class SerializationDesrializationTest extends FunSuite with ShouldMatchers{
     test("should allow deserializing some blog-entry json"){
       val blogEntry: BlogEntry = BlogEntryJsonDeserializer(json)
       val section: Section = blogEntry.content.sections(2)
+      println(blogEntry.uid)
       section.headline  should be(Some(Headline("The need")))
       section.paragraphs.size should be(2)
     }
@@ -15,6 +16,7 @@ class SerializationDesrializationTest extends FunSuite with ShouldMatchers{
     test("should allow serializing some blog entry"){
       //use a lot of magic :) implicits and type
       import BlogEntryJsonSerializer._
+      println(entry.uid)
       (entry: String) should include(""""created":{"time":35255716153154}""")
     }
 }
@@ -23,7 +25,8 @@ object Fixtures {
   def json = {
     """
       |{
-      |    "uid":"8aac796b-e3f4-4e89-8b23-735110f8c3ba",
+      |    "uid" : "First-_star_blog-pos_faf2acc0-c5b3-4443-94e5-9a8ee64d587b"
+      |    "title":"First *blog post* ever",
       |    "state":"Nascent",
       |    "created":{
       |        "time":35255716153154
@@ -76,7 +79,7 @@ object Fixtures {
     """.stripMargin
   }
   val entry = BlogEntry(
-    "8aac796b-e3f4-4e89-8b23-735110f8c3ba",
+    HintedUUIDUniqueIdGenerator("First *blog post* ever"),
     Nascent,
     Created(35255716153154l),
     None,

@@ -1,9 +1,9 @@
 package org.purang.blog.domain
 
-import java.util.UUID
 import net.liftweb.json._
 import net.liftweb.json.JsonAST.{JString, JValue}
 import net.liftweb.json.Serialization.write
+import java.util
 
 object Serialization {
   implicit val formats = net.liftweb.json.Serialization.formats(NoTypeHints) + UUIDSerializer + BlogStateSerializer
@@ -50,18 +50,18 @@ object BlogStateSerializer extends Serializer[BlogState] {
   }
 }
 
-object UUIDSerializer extends Serializer[UUID] {
-  private val UUIDClass = classOf[UUID]
+object UUIDSerializer extends Serializer[util.UUID] {
+  private val UUIDClass = classOf[util.UUID]
 
 
-  def deserialize(implicit format: Formats): PartialFunction[(TypeInfo, JValue), UUID] = {
+  def deserialize(implicit format: Formats): PartialFunction[(TypeInfo, JValue), util.UUID] = {
     case (TypeInfo(UUIDClass, _), json) => json match {
-      case JString(x) => UUID.fromString(x)
+      case JString(x) => util.UUID.fromString(x)
       case x => throw new MappingException("Can't convert " + x + " to UUID")
     }
   }
 
   def serialize(implicit format: Formats): PartialFunction[Any, JValue] = {
-    case x: UUID => JString(x.toString)
+    case x: util.UUID => JString(x.toString)
   }
 }
