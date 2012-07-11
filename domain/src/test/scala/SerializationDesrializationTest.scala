@@ -16,7 +16,6 @@ class SerializationDesrializationTest extends FunSuite with ShouldMatchers{
     test("should allow serializing some blog entry"){
       //use a lot of magic :) implicits and type
       import BlogEntryJsonSerializer._
-      println(entry.uid)
       (entry: String) should include(""""created":{"time":35255716153154}""")
     }
 }
@@ -108,7 +107,10 @@ object Fixtures {
       )
     ),
     List(Tag("blog"), Tag("writing")),
-    None,
-    List()
+    Some(InitialLike),
+    List(
+     Comment(User("@agreeable"), "totally agree", Created(), Option(InitialLike), Nil),
+     Comment(User("@disagreeable"), "totally disagree", Created(), Option(InitialDisLike), Nil)
+    )
   )
 }

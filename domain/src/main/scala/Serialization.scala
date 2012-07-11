@@ -2,7 +2,7 @@ package org.purang.blog.domain
 
 import net.liftweb.json._
 import net.liftweb.json.JsonAST.{JString, JValue}
-import net.liftweb.json.Serialization.write
+import net.liftweb.json.Serialization.{write, writePretty}
 import java.util
 
 object Serialization {
@@ -14,6 +14,15 @@ object BlogEntryJsonSerializer extends Function1[BlogEntry, String] {
   import Serialization.formats
 
   implicit def apply(blogEntry: BlogEntry): String = write(blogEntry)
+
+  implicit def unapply(json: String): BlogEntry = parse(json).extract[BlogEntry]
+}
+
+object PrettyBlogEntryJsonSerializer extends Function1[BlogEntry, String] {
+
+  import Serialization.formats
+
+  implicit def apply(blogEntry: BlogEntry): String = writePretty(blogEntry)
 
   implicit def unapply(json: String): BlogEntry = parse(json).extract[BlogEntry]
 }

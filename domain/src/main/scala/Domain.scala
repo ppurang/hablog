@@ -16,6 +16,9 @@ object `package` {
   private def encode = replaceWith(Map(" " -> "-" , "*" -> "", "!" -> "", "&" -> "_and_"))
 
   private def replaceWith: Map[String, String] => String => String = m => s => s.map(c => m.getOrElse(c.toString, c)).mkString("")
+
+  lazy val InitialLike = Rating(1, 0)
+  lazy val InitialDisLike = Rating(0, 1)
 }
 
 
@@ -49,11 +52,8 @@ case class Rating(likes: Int, dislikes: Int) {
   def dislike() = Rating(this.likes, this.dislikes + 1)
 }
 
-object InitialLike extends Rating(1,0)
-object InitialDisLike extends Rating(0,1)
-
 case class User(twitterÍd: String)
-case class Comment(user: User, text: String, created: Created, replies: List[Comment])
+case class Comment(user: User, text: String, created: Created, rating: Option[Rating], replies: List[Comment])
 
 case class BlogEntry(uid: String,
                      state: BlogState = Nascent,
