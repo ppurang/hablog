@@ -59,6 +59,9 @@ case class BlogEntry(uid: String,
                      state: BlogState = Nascent,
                      created: Created,
                      modified: Option[Modified] = None,
+                     title : Option[Headline] = None,
+                     headline: Headline,
+                     summary : Option[Text] = None,
                      content: Content,
                      tags: List[Tag] = List(),
                      rating: Option[Rating] = None,
@@ -70,7 +73,7 @@ case class Created(time: Long = System.currentTimeMillis())
 
 case class Modified(time: Long = System.currentTimeMillis())
 
-case class Content(headline: Headline, sections: List[Section] = List())
+case class Content(sections: List[Section] = List())
 
 case class Headline(headline: String)
 
@@ -80,14 +83,14 @@ object HeadlineWrapper extends Function1[String, Headline] {
   implicit def unapply(headline: Headline): String = headline.headline
 }
 
-case class Section(headline: Option[Headline] = None, paragraphs: List[Paragraph] = List())
+case class Section(headline: Option[Headline] = None, text: Text)
 
-case class Paragraph(content: String)
+case class Text(content: String)
 
-object ParagraphWrapper extends Function1[String, Paragraph] {
-  implicit def apply(str: String): Paragraph = Paragraph(str)
+object TextWrapper extends Function1[String, Text] {
+  implicit def apply(str: String): Text = Text(str)
 
-  implicit def unapply(paragraph: Paragraph): String = paragraph.content
+  implicit def unapply(paragraph: Text): String = paragraph.content
 }
 
 case class Tag(tag: String)

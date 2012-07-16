@@ -51,9 +51,9 @@ object Resolvers {
 
 object Dependencies {
   val logbackVer = "1.0.6"
-  val logbackCore    = "ch.qos.logback" % "logback-core"     % logbackVer
-  val logbackClassic = "ch.qos.logback" % "logback-classic"  % logbackVer
-  val liftJsonScalaz = "net.liftweb" % "lift-json_2.9.1" % "2.4"
+  val logbackCore    = "ch.qos.logback" % "logback-core"     % logbackVer  withSources()
+  val logbackClassic = "ch.qos.logback" % "logback-classic"  % logbackVer  withSources()
+  val liftJsonScalaz = "net.liftweb" % "lift-json_2.9.1" % "2.4"  withSources()
   //val scalatest	= "org.scalatest" % "scalatest_2.9.2" % "1.8" % "test"
   val scalatest = "org.scalatest" % "scalatest_2.9.1" % "1.6.1" % "test" withSources()
 
