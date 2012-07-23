@@ -1,0 +1,36 @@
+Getting Started
+=====
+
+
+```bash
+	> ./sbt
+
+	> test            #run tests
+
+	> gen-idea        #generate idea files
+
+	> publish-local   #publish to the local ivy repo  
+```
+
+
+
+Code
+======
+
+Checkout the tests.
+
+
+
+
+
+Acknowledgements
+========
+
+https://github.com/paulp/sbt-extras for the sbt script
+
+
+
+
+
+
+
