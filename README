@@ -1,8 +1,9 @@
 Getting Started
 =====
 
+Use the sbt script
 
-```bash
+
 	> ./sbt
 
 	> test            #run tests
@@ -10,7 +11,7 @@ Getting Started
 	> gen-idea        #generate idea files
 
 	> publish-local   #publish to the local ivy repo  
-```
+
 
 
 
