@@ -33,10 +33,10 @@ object Fixtures {
       |        "time":35255716153154
       |    },
       |    "title":{
-      |            "headline":"Finally, first *blog post* ever"
+      |            "content":"Finally, first *blog post* ever"
       |        },
       |    "headline":{
-      |            "headline":"First *blog post* ever"
+      |            "content":"First *blog post* ever"
       |        },
       |    "content":{
       |        "sections":[
@@ -48,7 +48,7 @@ object Fixtures {
       |            },
       |            {
       |                "headline":{
-      |                    "headline":"The need"
+      |                    "content":"The need"
       |                },
       |                "text":
       |                    {

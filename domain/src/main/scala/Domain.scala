@@ -75,12 +75,12 @@ case class Modified(time: Long = System.currentTimeMillis())
 
 case class Content(sections: List[Section] = List())
 
-case class Headline(headline: String)
+case class Headline(content: String)
 
 object HeadlineWrapper extends Function1[String, Headline] {
   implicit def apply(str: String): Headline = Headline(str)
 
-  implicit def unapply(headline: Headline): String = headline.headline
+  implicit def unapply(headline: Headline): String = headline.content
 }
 
 case class Section(headline: Option[Headline] = None, text: Text)
