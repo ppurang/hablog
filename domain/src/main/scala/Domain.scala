@@ -62,7 +62,7 @@ case class BlogEntry(uid: String,
                      title : Option[Headline] = None,
                      headline: Headline,
                      summary : Option[Text] = None,
-                     content: Content,
+                     content: List[Section] = List(),
                      tags: List[Tag] = List(),
                      rating: Option[Rating] = None,
                      comments: List[Comment] = List()
@@ -72,8 +72,6 @@ case class BlogEntry(uid: String,
 case class Created(time: Long = System.currentTimeMillis())
 
 case class Modified(time: Long = System.currentTimeMillis())
-
-case class Content(sections: List[Section] = List())
 
 case class Headline(content: String)
 
