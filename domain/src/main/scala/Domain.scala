@@ -1,7 +1,9 @@
 package org.purang.blog.domain
+
 import java.util
 
 object `package` {
+
   trait Unique[+A] {
     def uid: String
   }
@@ -13,12 +15,16 @@ object `package` {
     def apply(hint: String) = encode(hint).take(30) + "_" + util.UUID.randomUUID()
   }
 
-  private def encode = replaceWith(Map(" " -> "-" , "*" -> "", "!" -> "", "&" -> "_and_"))
+  private def encode = replaceWith(Map(" " -> "-", "*" -> "", "!" -> "", "&" -> "_and_"))
 
   private def replaceWith: Map[String, String] => String => String = m => s => s.map(c => m.getOrElse(c.toString, c)).mkString("")
 
   lazy val InitialLike = Rating(1, 0)
   lazy val InitialDisLike = Rating(0, 1)
+
+  def convert(nbe: NascentBlogEntry) : BlogEntry = BlogEntry(uid = HintedUUIDUniqueIdGenerator(nbe.headline.content), created = Option(Created()), title = nbe.title, headline = nbe.headline, summary = nbe.summary, content = nbe.content, tags = nbe.tags)
+
+
 }
 
 
@@ -49,25 +55,35 @@ case object Retired extends BlogState {
 
 case class Rating(likes: Int, dislikes: Int) {
   def like() = Rating(this.likes + 1, this.dislikes)
+
   def dislike() = Rating(this.likes, this.dislikes + 1)
 }
 
 case class User(twitterÍd: String)
-case class Comment(user: User, text: String, created: Created, rating: Option[Rating], replies: List[Comment])
+
+case class Comment(user: User, text: String, created: Option[Created], rating: Option[Rating], replies: List[Comment])
+
+
+case class NascentBlogEntry(title: Option[Headline] = None,
+                            headline: Headline,
+                            summary: Option[Text] = None,
+                            content: List[Section] = List(),
+                            tags: List[Tag] = List())
+
 
 case class BlogEntry(uid: String,
                      state: BlogState = Nascent,
-                     created: Created,
+                     created: Option[Created],
                      modified: Option[Modified] = None,
-                     title : Option[Headline] = None,
+                     title: Option[Headline] = None,
                      headline: Headline,
-                     summary : Option[Text] = None,
+                     summary: Option[Text] = None,
                      content: List[Section] = List(),
                      tags: List[Tag] = List(),
                      rating: Option[Rating] = None,
                      comments: List[Comment] = List()
-                     )
-      extends Unique[BlogEntry]
+                      )
+  extends Unique[BlogEntry]
 
 case class Created(time: Long = System.currentTimeMillis())
 
@@ -94,7 +110,7 @@ object TextWrapper extends Function1[String, Text] {
 case class Tag(tag: String)
 
 object TagWrapper extends Function1[String, Tag] {
-  implicit def apply(str: String): Tag = Tag(tag=str)
+  implicit def apply(str: String): Tag = Tag(tag = str)
 
   implicit def unapply(tag: Tag): String = tag.tag
 }
