@@ -3,8 +3,6 @@ package controllers
 import play.api._
 import play.api.mvc._
 import org.purang.blog.domain._
-import com.sun.xml.internal.ws.resources.SoapMessages
-import com.sun.xml.internal.bind.v2.model.core.NonElement
 
 object Application extends Controller {
 
