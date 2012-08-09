@@ -4,7 +4,7 @@ import Keys._
 object BuildSettings {
   val buildOrganization = "org.purang"
   val buildVersion      = "0.0.1"
-  val buildScalaVersion = "2.9.2"
+  val buildScalaVersion = "2.9.1"
 
   val buildSettings = Defaults.defaultSettings ++ Seq (
     organization := buildOrganization,
@@ -55,7 +55,7 @@ object Dependencies {
   val logbackClassic = "ch.qos.logback" % "logback-classic"  % logbackVer  withSources()
   val liftJsonScalaz = "net.liftweb" % "lift-json_2.9.1" % "2.4"  withSources()
   //val scalatest	= "org.scalatest" % "scalatest_2.9.2" % "1.8" % "test"
-  val scalatest = "org.scalatest" % "scalatest_2.9.2" % "1.8" % "test" withSources()
+  val scalatest = "org.scalatest" % "scalatest_2.9.1" % "1.8" % "test" withSources()
 
 }
 
@@ -82,7 +82,7 @@ object HABlogBuild extends Build {
   ) aggregate (domain)
 
   lazy val domain = Project (
-    "domain",
+    "hablog-domain",
     file ("domain"),
     settings = buildSettings ++ Seq (resolvers := oracleResolvers, libraryDependencies ++= Seq(liftJsonScalaz, scalatest))
   )

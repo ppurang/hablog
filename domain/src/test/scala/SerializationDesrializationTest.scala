@@ -70,7 +70,7 @@ object Fixtures {
   val entry = BlogEntry(
     HintedUUIDUniqueIdGenerator("First *blog post* ever"),
     Nascent,
-    Created(1343224588265l),
+    Option(Created(1343224588265l)),
     None,
     Some(Headline("Finally, First *blog post* ever")),
     Headline("First *blog post* ever"),
@@ -88,8 +88,8 @@ object Fixtures {
     List(Tag("blog"), Tag("writing")),
     Some(InitialLike),
     List(
-      Comment(User("@agreeable"), "totally agree", Created(), Option(InitialLike), Nil),
-      Comment(User("@disagreeable"), "totally disagree", Created(), Option(InitialDisLike), Nil)
+      Comment(User("@agreeable"), "totally agree", Option(Created()), Option(InitialLike), Nil),
+      Comment(User("@disagreeable"), "totally disagree", Option(Created())  , Option(InitialDisLike), Nil)
     )
   )
 }

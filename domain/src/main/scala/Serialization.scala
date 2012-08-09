@@ -36,6 +36,15 @@ object BlogEntryJsonDeserializer extends Function1[String, BlogEntry] {
   implicit def unapply(blogEntry: BlogEntry): String = write(blogEntry)
 }
 
+object NascentBlogEntryJsonDeserializer extends Function1[String, NascentBlogEntry] {
+
+  import Serialization.formats
+
+  implicit def apply(json: String): NascentBlogEntry = parse(json).extract[NascentBlogEntry]
+
+  implicit def unapply(nascentBlogEntry: NascentBlogEntry): String = write(nascentBlogEntry)
+}
+
 
 object BlogStateSerializer extends Serializer[BlogState] {
   private val BlogStateClass = classOf[BlogState]
