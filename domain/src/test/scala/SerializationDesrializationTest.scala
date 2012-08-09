@@ -2,8 +2,7 @@ package org.purang.blog.domain
 
 import org.scalatest.FunSuite
 import org.scalatest.matchers.ShouldMatchers
-import tools.nsc.doc.model.comment.Summary
-
+import java.util.UUID.{randomUUID => uuid}
 class SerializationDesrializationTest extends FunSuite with ShouldMatchers {
 
   import Fixtures._
@@ -88,8 +87,8 @@ object Fixtures {
     List(Tag("blog"), Tag("writing")),
     Some(InitialLike),
     List(
-      Comment(User("@agreeable"), "totally agree", Option(Created()), Option(InitialLike), Nil),
-      Comment(User("@disagreeable"), "totally disagree", Option(Created())  , Option(InitialDisLike), Nil)
+      Comment(uuid.toString, User("@agreeable"), "totally agree", Option(Created()), Option(InitialLike), Nil),
+      Comment(uuid.toString, User("@disagreeable"), "totally disagree", Option(Created())  , Option(InitialDisLike), Nil)
     )
   )
 }
