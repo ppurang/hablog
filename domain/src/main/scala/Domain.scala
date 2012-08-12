@@ -61,7 +61,7 @@ case class Rating(likes: Int, dislikes: Int) {
 
 case class User(twitterÍd: String)
 
-case class Comment(user: User, text: String, created: Option[Created], rating: Option[Rating], replies: List[Comment])
+case class Comment(uid: String = util.UUID.randomUUID().toString, user: User, text: String, created: Option[Created], rating: Option[Rating], replies: List[Comment]) extends Unique[Comment]
 
 
 case class NascentBlogEntry(title: Option[Headline] = None,

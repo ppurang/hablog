@@ -18,6 +18,15 @@ object BlogEntryJsonSerializer extends Function1[BlogEntry, String] {
   implicit def unapply(json: String): BlogEntry = parse(json).extract[BlogEntry]
 }
 
+object ListBlogEntryJsonSerializer extends Function1[List[BlogEntry], String] {
+
+  import Serialization.formats
+
+  implicit def apply(blogEntry: List[BlogEntry]): String = write(blogEntry)
+
+  implicit def unapply(json: String): List[BlogEntry] = parse(json).extract[List[BlogEntry]]
+}
+
 object PrettyBlogEntryJsonSerializer extends Function1[BlogEntry, String] {
 
   import Serialization.formats
