@@ -3,6 +3,8 @@ package controllers
 import play.api._
 import play.api.mvc._
 import org.purang.blog.domain._
+import java.util.UUID.{randomUUID => uuid}
+import org.purang.blog.domain.{Created => c}
 
 object Application extends Controller {
 
@@ -33,24 +35,6 @@ object Application extends Controller {
     }
   }
 
-/*
-  def addComment(id: String, ids: String)  = Action(parse.tolerantText) {
-      request => {
-        database.get(id) match {
-          case Some(be) => {
-            //find the comment and update it
-            //not found return bad request
-
-          }
-          case None => NotFound(id)
-        }
-
-        Results.Created(entry.uid).withHeaders(
-          LOCATION -> entry.uid
-        )
-      }
-    }
-*/
 
 
 }
@@ -78,8 +62,8 @@ object Examples {
       List(Tag("blog"), Tag("writing")),
       Some(InitialLike),
       List(
-        Comment(User("@agreeable"), "totally agree", Option(Created()), Option(InitialLike), Nil),
-        Comment(User("@disagreeable"), "totally disagree", Option(Created())  , Option(InitialDisLike), Nil)
+        Comment(uuid.toString, User("@agreeable"), "totally agree", Option(Created()), Option(InitialLike), Nil),
+        Comment(uuid.toString,User("@disagreeable"), "totally disagree", Option(Created())  , Option(InitialDisLike), Nil)
       )
     )
   val e02 = BlogEntry(
@@ -103,8 +87,8 @@ object Examples {
       List(Tag("blog"), Tag("writing")),
       Some(InitialLike),
       List(
-        Comment(User("@agreeable"), "totally agree", Option(Created()), Option(InitialLike), Nil),
-        Comment(User("@disagreeable"), "totally disagree", Option(Created())  , Option(InitialDisLike), Nil)
+        Comment(uuid.toString,User("@agreeable"), "totally agree", Option(Created()), Option(InitialLike), Nil),
+        Comment(uuid.toString,User("@disagreeable"), "totally disagree", Option(Created())  , Option(InitialDisLike), Nil)
       )
     )
   val e03 = BlogEntry(
@@ -128,8 +112,8 @@ object Examples {
       List(Tag("blog"), Tag("writing")),
       Some(InitialLike),
       List(
-        Comment(User("@agreeable"), "totally agree", Option(Created()), Option(InitialLike), Nil),
-        Comment(User("@disagreeable"), "totally disagree", Option(Created())  , Option(InitialDisLike), Nil)
+        Comment(uuid.toString,User("@agreeable"), "totally agree", Option(Created()), Option(InitialLike), Nil),
+        Comment(uuid.toString,User("@disagreeable"), "totally disagree", Option(Created())  , Option(InitialDisLike), Nil)
       )
     )
   val e04 = BlogEntry(
@@ -153,8 +137,8 @@ object Examples {
       List(Tag("blog"), Tag("writing")),
       Some(InitialLike),
       List(
-        Comment(User("@agreeable"), "totally agree", Option(Created()), Option(InitialLike), Nil),
-        Comment(User("@disagreeable"), "totally disagree", Option(Created())  , Option(InitialDisLike), Nil)
+        Comment(uuid.toString,User("@agreeable"), "totally agree", Option(Created()), Option(InitialLike), Nil),
+        Comment(uuid.toString,User("@disagreeable"), "totally disagree", Option(Created())  , Option(InitialDisLike), Nil)
       )
     )
   val e05 = BlogEntry(
@@ -178,8 +162,8 @@ object Examples {
       List(Tag("blog"), Tag("writing")),
       Some(InitialLike),
       List(
-        Comment(User("@agreeable"), "totally agree", Option(Created()), Option(InitialLike), Nil),
-        Comment(User("@disagreeable"), "totally disagree", Option(Created())  , Option(InitialDisLike), Nil)
+        Comment(uuid.toString,User("@agreeable"), "totally agree", Option(Created()), Option(InitialLike), Nil),
+        Comment(uuid.toString,User("@disagreeable"), "totally disagree", Option(Created())  , Option(InitialDisLike), Nil)
       )
     )
 }

@@ -25,6 +25,6 @@ object ApplicationBuild extends Build {
       //"Local ivy" at Path.userHome.asFile.toURI.toURL + ".ivy2/local"
     )*/
 
-    resolvers ++= Seq(Resolver.file("Local ivy Repository", file("/home/ppurang/.ivy2/local/"))(Resolver.ivyStylePatterns))
+    resolvers ++= Seq(Resolver.file("Local ivy Repository", file(Path.userHome + "/.ivy2/local/"))(Resolver.ivyStylePatterns))
   )
 }
