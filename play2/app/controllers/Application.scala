@@ -5,6 +5,7 @@ import play.api.mvc._
 import org.purang.blog.domain._
 import java.util.UUID.{randomUUID => uuid}
 import org.purang.blog.domain.{Created => c}
+import org.purang.blog.domain.addCommentToList
 
 object Application extends Controller {
 
@@ -17,7 +18,6 @@ object Application extends Controller {
   database(e05.uid) = e05
   def all() = Action {
     Ok(ListBlogEntryJsonSerializer(database.values.toList)).as("application/json")
-    //Ok("tada")
   }
 
   def blog(id: String) = Action {
@@ -27,6 +27,7 @@ object Application extends Controller {
   def createBlog = Action(parse.tolerantText) {
     request => {
       import org.purang.blog.domain.NascentBlogEntryJsonDeserializer
+      Logger.info(request.body)
       val entry = convert(NascentBlogEntryJsonDeserializer(request.body))
       database(entry.uid) = entry
       Results.Created(entry.uid).withHeaders(
@@ -35,8 +36,25 @@ object Application extends Controller {
     }
   }
 
-
-
+  def addOrReplaceComment(id: String, user: String, ids: String) = Action(parse.tolerantText) {
+    request => {
+      val nc = Comment(uuid.toString, User(user), request.body, Option(c()), None, Nil)
+      database.get(id) match {
+        case Some(be) =>  {
+          val list = addCommentToList(be.comments, nc, ids)
+          list match {
+            case Right(nc) => {
+              database(be.uid) = be.copy(comments = nc)
+              Ok(BlogEntryJsonDeserializer.unapply(database(id))).as("application/json")
+            }
+            case Left(Right(tooMany)) =>  BadRequest(tooMany.toString)
+            case Left(Left(noneFound)) => BadRequest(noneFound.toString)
+          }
+        }
+        case None => NotFound("blog entry: " + id)
+      }
+    }
+  }
 }
 
 object Examples {
