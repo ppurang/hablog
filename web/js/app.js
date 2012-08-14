@@ -10,12 +10,70 @@ var HaBlog = Em.Application.create({
 });
 
 
+/******************************************************/
+/*				CONSTANTS							  */
+/******************************************************/
+
+HaBlog.CONSTANTS = {
+    PATH_CONTEXT : 'http://localhost:9000',
+    PATH_BLOG_LIST : '/blog'
+};
+
+
 HaBlog.GetItemsFromServer = function () {
-    $.getJSON("../domain/example.json",
-        function (data) {
-            console.log(data);
-        }
-    );
+    $.getJSON(HaBlog.CONSTANTS.PATH_CONTEXT+HaBlog.CONSTANTS.PATH_BLOG_LIST,
+        function(data) {
+            // Use map to iterate through the items and create a new JSON object for
+            // each item
+            data.map(function(item) {
+                console.log(item);
+
+                var post = {};
+
+                post.uid = item.uid;
+                post.headline = item.headline.content;
+                post.title = item.title.content;
+                post.author = item.author;
+                post.summary = item.summary.content;
+                post.sections = parseSections(item.content);
+                post.tags = item.tags;
+                post.comments = parseComments(item.comments);
+
+
+                console.log("Adding new post");
+                console.log(post);
+                var emberPost = HaBlog.Post.create(post);
+                HaBlog.postsController.addPost(emberPost);
+
+            });
+    });
+}
+
+function parseSections(jsonContent){
+    var sections = [];
+    jsonContent.map(function(item){
+        var section = HaBlog.Section.create({
+            text: item.text === undefined ? null : item.text.content === undefined ? null : item.text.content,
+            headline : item.headline === undefined ? null : item.headline.content === undefined ? null : item.headline.content
+
+        });
+        sections.push(section);
+    });
+    return sections;
+}
+
+function parseComments(jsonContent){
+    var comments = [];
+    jsonContent.map(function(item){
+        var comment = HaBlog.Comment.create({
+            uid:item.uid,
+            text:item.text,
+            created: moment(item.created.time)
+        });
+        comments.push(comment);
+    });
+
+    return comments;
 }
 /******************************************************/
 /*				MODEL								  */
@@ -79,7 +137,7 @@ HaBlog.postsController = Em.ArrayController.create({
             return low;
         }
         mid = low + Math.floor((high - low) / 2);
-        midValue = Date.parse(this.objectAt(mid).get('created').get('time'));
+        midValue = Date.parse(this.objectAt(mid).get('created'));
 
         if (value < midValue) {
             return this.binarySearch(value, mid + 1, high);
@@ -87,7 +145,10 @@ HaBlog.postsController = Em.ArrayController.create({
             return this.binarySearch(value, low, mid);
         }
         return mid;
-    }
+    },
+    commentsCount : function() {
+        return this.get('comments').get('length');
+    }.property('@each')
 });
 
 /******************************************************/
@@ -114,6 +175,11 @@ HaBlog.PostSummaryListView = Em.View.extend({
         this.$('.fullText').fadeToggle("400", "linear", function () {
             $(this).closest(".post").find(".toggleButton").toggle();
         });
-    }
+    },
+    // A 'property' that returns the count of items
+    commentsCount: function() {
+        //return HaBlog.postsController.get('commentsCount');
+        return 2;
+    }.property('HaBlog.postsController.commentsCount')
 });
 
