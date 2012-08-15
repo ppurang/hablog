@@ -115,6 +115,12 @@ case class Rating(likes: Int, dislikes: Int) {
 
 case class User(twitterÍd: String)
 
+case class NascentComment(someUser: User, comment: String)  {
+  def toComment() : Comment = Comment(user = someUser, text = comment, created = Some(Created()), rating = None, replies
+    = Nil)
+}
+
+
 case class Comment(uid: String = util.UUID.randomUUID().toString, user: User, text: String, created: Option[Created], rating: Option[Rating], replies: List[Comment]) extends Unique[Comment]
 
 
