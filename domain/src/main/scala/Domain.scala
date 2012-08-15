@@ -24,9 +24,63 @@ object `package` {
 
   def convert(nbe: NascentBlogEntry) : BlogEntry = BlogEntry(uid = HintedUUIDUniqueIdGenerator(nbe.headline.content), created = Option(Created()), title = nbe.title, headline = nbe.headline, summary = nbe.summary, content = nbe.content, tags = nbe.tags)
 
+  trait NoStackTrace extends Throwable {
+    override def fillInStackTrace(): Throwable = this
+  }
+  case class TooManyCommentsFound(m: String) extends AssertionError with NoStackTrace  {
+    override def toString = "TooManyCommentsFound(%s)".format(m)
+  }
+  case class NoCommentsFound(m: String) extends AssertionError with NoStackTrace {
+    override def toString = "NoCommentsFound(%s)".format(m)
+  }
+
+  def tail(parts: List[Comment]): List[Comment] = {
+    (if (parts.isEmpty) Nil else parts.tail)
+  }
+
+  final def addComment(t: Comment, c: Comment, ids: String): Either[Either[TooManyCommentsFound, NoCommentsFound], Comment] = {
+    ids.split(",").map(_.trim).filter(_ != "").toList match {
+      case x :: Nil => t.replies.filter(_.uid == x) match {
+        case y :: Nil => {
+          val parts = t.replies span (_.uid != y.uid)
+          Right(t.copy(replies = parts._1 ++ (addComment(y, c, "").right.get :: tail(parts._2))))
+        }
+        case y :: ys => Left(Left(TooManyCommentsFound("%s in %s".format(ids, t))))
+        case _ => Left(Right(NoCommentsFound("%s in %s".format(ids, t))))
+      }
+      case x :: xs => {
+        val parts = t.replies span (_.uid != x)
+
+        Right(t.copy(replies = parts._1 ++ (addComment(parts._2.head, c, xs.mkString(",")).right.get :: tail(parts._2))))
+
+      }
+      case _ => Right(t.copy(replies = t.replies :+ c))
+    }
+  }
+
+  final def addCommentToList(t: List[Comment], c: Comment, ids: String): Either[Either[TooManyCommentsFound, NoCommentsFound], List[Comment]] = {
+    ids.split(",").map(_.trim).filter(_ != "").toList match {
+      case x :: Nil => t.filter(_.uid == x) match {
+        case y :: Nil => {
+          val parts = y.replies span (_.uid != y.uid)
+          Right(parts._1 ++ (addComment(y, c, "").right.get :: tail(parts._2)))
+        }
+        case y :: ys => Left(Left(TooManyCommentsFound("%s in %s".format(ids, t))))
+        case _ => Left(Right(NoCommentsFound("%s in %s".format(ids, t))))
+      }
+      case x :: xs => t.filter(_.uid == x) match {
+        case y :: Nil => {
+          val parts = y.replies span (_.uid != y.uid)
+          Right(parts._1 ++ (addComment(y, c, xs.mkString(",")).right.get :: tail(parts._2)))
+        }
+        case y :: ys => Left(Left(TooManyCommentsFound("%s in %s".format(ids, t))))
+        case _ => Left(Right(NoCommentsFound("%s in %s".format(ids, t))))
+      }
+      case _ => Right(t :+ c)
+    }
+  }
 
 }
-
 
 sealed trait BlogState {
   val next: Option[BlogState]

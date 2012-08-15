@@ -11,7 +11,10 @@ GET     /blog/:id                     controllers.Application.blog(id: String)
 
 POST    /blog                         controllers.Application.createBlog()
 
-#POST     /blog/:id/comment/*ids       controllers.Application.addComment(id: String, ids: String)
+POST     /blog/:id/:user/comment       controllers.Application.addOrReplaceComment(id: String, user:String, ids: String = "")
+
+POST     /blog/:id/:user/comment/*ids       controllers.Application.addOrReplaceComment(id: String, user:String, ids: String)
+
 
 
 # Map static resources from the /public folder to the /assets URL path
