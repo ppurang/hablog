@@ -82,27 +82,27 @@ object `package` {
 
 }
 
-sealed trait BlogState {
-  val next: Option[BlogState]
-  val prev: Option[BlogState]
+sealed trait BlogEntryState {
+  val next: Option[BlogEntryState]
+  val prev: Option[BlogEntryState]
 }
 
-case object Nascent extends BlogState {
+case object Nascent extends BlogEntryState {
   val next = Some(Draft)
   val prev = None
 }
 
-case object Draft extends BlogState {
+case object Draft extends BlogEntryState {
   val next = Some(Published)
   val prev = Some(Nascent)
 }
 
-case object Published extends BlogState {
+case object Published extends BlogEntryState {
   val next = Some(Retired)
   val prev = Some(Draft)
 }
 
-case object Retired extends BlogState {
+case object Retired extends BlogEntryState {
   val next = None
   val prev = Some(Published)
 }
@@ -132,7 +132,7 @@ case class NascentBlogEntry(title: Option[Headline] = None,
 
 
 case class BlogEntry(uid: String,
-                     state: BlogState = Nascent,
+                     state: BlogEntryState = Nascent,
                      created: Option[Created],
                      modified: Option[Modified] = None,
                      title: Option[Headline] = None,

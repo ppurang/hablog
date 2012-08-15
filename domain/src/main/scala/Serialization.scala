@@ -64,10 +64,10 @@ object NascentCommentJsonDeserializer extends Function1[String, NascentComment] 
 }
 
 
-object BlogStateSerializer extends Serializer[BlogState] {
-  private val BlogStateClass = classOf[BlogState]
+object BlogStateSerializer extends Serializer[BlogEntryState] {
+  private val BlogStateClass = classOf[BlogEntryState]
 
-  def deserialize(implicit format: Formats): PartialFunction[(TypeInfo, JValue), BlogState] = {
+  def deserialize(implicit format: Formats): PartialFunction[(TypeInfo, JValue), BlogEntryState] = {
     case (TypeInfo(BlogStateClass, _), json) => json match {
       case JString(x) =>
         x match {
@@ -82,7 +82,7 @@ object BlogStateSerializer extends Serializer[BlogState] {
   }
 
   def serialize(implicit format: Formats): PartialFunction[Any, JValue] = {
-    case x: BlogState => JString(x.toString)
+    case x: BlogEntryState => JString(x.toString)
   }
 }
 
