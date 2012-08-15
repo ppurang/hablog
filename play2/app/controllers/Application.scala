@@ -89,12 +89,12 @@ object Examples {
       )
     )
   val e02 = BlogEntry(
-      HintedUUIDUniqueIdGenerator("First *blog post* ever"),
+      HintedUUIDUniqueIdGenerator("Second *blog post* ever"),
       Nascent,
       Option(Created(1343224588265l)),
       None,
-      Some(Headline("Finally, First *blog post* ever")),
-      Headline("First *blog post* ever"),
+      Some(Headline("Finally, Second *blog post* ever")),
+      Headline("Second *blog post* ever"),
       Some(Text("This journey took a long time. It almost never started and then it had many close calls. This post narrates this story.")),
       List(
         Section(
@@ -114,12 +114,12 @@ object Examples {
       )
     )
   val e03 = BlogEntry(
-      HintedUUIDUniqueIdGenerator("First *blog post* ever"),
+      HintedUUIDUniqueIdGenerator("Third *blog post* ever"),
       Nascent,
       Option(Created(1343224588265l)),
       None,
-      Some(Headline("Finally, First *blog post* ever")),
-      Headline("First *blog post* ever"),
+      Some(Headline("Finally, Third *blog post* ever")),
+      Headline("Third *blog post* ever"),
       Some(Text("This journey took a long time. It almost never started and then it had many close calls. This post narrates this story.")),
       List(
         Section(
@@ -139,12 +139,12 @@ object Examples {
       )
     )
   val e04 = BlogEntry(
-      HintedUUIDUniqueIdGenerator("First *blog post* ever"),
+      HintedUUIDUniqueIdGenerator("Fourth *blog post* ever"),
       Nascent,
       Option(Created(1343224588265l)),
       None,
-      Some(Headline("Finally, First *blog post* ever")),
-      Headline("First *blog post* ever"),
+      Some(Headline("Finally, Fourth *blog post* ever")),
+      Headline("Fourth *blog post* ever"),
       Some(Text("This journey took a long time. It almost never started and then it had many close calls. This post narrates this story.")),
       List(
         Section(
@@ -164,12 +164,12 @@ object Examples {
       )
     )
   val e05 = BlogEntry(
-      HintedUUIDUniqueIdGenerator("First *blog post* ever"),
+      HintedUUIDUniqueIdGenerator("Fifth *blog post* ever"),
       Nascent,
       Option(Created(1343224588265l)),
       None,
-      Some(Headline("Finally, First *blog post* ever")),
-      Headline("First *blog post* ever"),
+      Some(Headline("Finally, Fifth *blog post* ever")),
+      Headline("Fifth *blog post* ever"),
       Some(Text("This journey took a long time. It almost never started and then it had many close calls. This post narrates this story.")),
       List(
         Section(
