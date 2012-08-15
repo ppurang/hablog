@@ -47,8 +47,8 @@ object Application extends Controller {
         case Some(be) =>  {
           val list = addCommentToList(be.comments, nc, ids)
           list match {
-            case Right(nc) => {
-              database(be.uid) = be.copy(comments = nc)
+            case Right(ncc) => {
+              database(be.uid) = be.copy(comments = ncc)
               Ok(BlogEntryJsonDeserializer.unapply(database(id))).as("application/json")
             }
             case Left(Right(tooMany)) =>  BadRequest(tooMany.toString)
