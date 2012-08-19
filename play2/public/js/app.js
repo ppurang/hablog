@@ -5,6 +5,10 @@ var HaBlog = Em.Application.create({
     ready:function () {
         this._super();
 
+
+
+        HaBlog.initializeMarkdownParser();
+
         HaBlog.GetItemsFromServer();
     }
 });
@@ -49,7 +53,12 @@ HaBlog.GetItemsFromServer = function () {
     });
 }
 
-function parseSections(jsonContent){
+
+HaBlog.initializeMarkdownParser = function() {
+
+}
+
+HaBlog.ParseSections = function(jsonContent){
     var sections = [];
     jsonContent.map(function(item){
         var section = HaBlog.Section.create({
