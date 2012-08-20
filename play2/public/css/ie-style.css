@@ -1,0 +1,5 @@
+.example-date .example-year {
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+	right: -15px;
+	top: 5px;
+}

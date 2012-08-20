@@ -20,6 +20,10 @@ object Application extends Controller {
     Ok(ListBlogEntryJsonSerializer(database.values.toList)).as("application/json")
   }
 
+  def index = Action{
+    Ok(views.html.index())
+  }
+
   def blog(id: String) = Action {
     Ok(BlogEntryJsonDeserializer.unapply(database(id))).as("application/json")
   }
