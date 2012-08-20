@@ -5,9 +5,7 @@ var HaBlog = Em.Application.create({
     ready:function () {
         this._super();
 
-
-
-        HaBlog.initializeMarkdownParser();
+        HaBlog.InitializeMarkdownParser();
 
         HaBlog.GetItemsFromServer();
     }
@@ -23,6 +21,10 @@ HaBlog.CONSTANTS = {
     PATH_BLOG_LIST : '/blog'
 };
 
+HaBlog.Utilities = {
+    Showdown : null
+}
+
 
 HaBlog.GetItemsFromServer = function () {
     $.getJSON(HaBlog.CONSTANTS.PATH_CONTEXT+HaBlog.CONSTANTS.PATH_BLOG_LIST,
@@ -30,7 +32,7 @@ HaBlog.GetItemsFromServer = function () {
             // Use map to iterate through the items and create a new JSON object for
             // each item
             data.map(function(item) {
-                console.log(item);
+                //console.log(item);
 
                 var post = {};
 
@@ -39,13 +41,13 @@ HaBlog.GetItemsFromServer = function () {
                 post.title = item.title.content;
                 post.author = item.author;
                 post.summary = item.summary.content;
-                post.sections = parseSections(item.content);
+                post.sections = HaBlog.ParseSections(item.content);
                 post.tags = item.tags;
-                post.comments = parseComments(item.comments);
+                post.comments = HaBlog.ParseComments(item.comments);
 
 
                 console.log("Adding new post");
-                console.log(post);
+                //console.log(post);
                 var emberPost = HaBlog.Post.create(post);
                 HaBlog.postsController.addPost(emberPost);
 
@@ -54,16 +56,16 @@ HaBlog.GetItemsFromServer = function () {
 }
 
 
-HaBlog.initializeMarkdownParser = function() {
-
-}
+HaBlog.InitializeMarkdownParser = function () {
+    HaBlog.Utilities.Showdown = new Showdown.converter();
+};
 
 HaBlog.ParseSections = function(jsonContent){
     var sections = [];
     jsonContent.map(function(item){
         var section = HaBlog.Section.create({
-            text: item.text === undefined ? null : item.text.content === undefined ? null : item.text.content,
-            headline : item.headline === undefined ? null : item.headline.content === undefined ? null : item.headline.content
+            text: item.text === undefined ? null : item.text.content === undefined ? null : HaBlog.Utilities.Showdown.makeHtml(item.text.content),
+            headline : item.headline === undefined ? null : item.headline.content === undefined ? null : HaBlog.Utilities.Showdown.makeHtml(item.headline.content)
 
         });
         sections.push(section);
@@ -71,7 +73,7 @@ HaBlog.ParseSections = function(jsonContent){
     return sections;
 }
 
-function parseComments(jsonContent){
+HaBlog.ParseComments = function (jsonContent){
     var comments = [];
     jsonContent.map(function(item){
         var comment = HaBlog.Comment.create({
