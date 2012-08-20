@@ -44,6 +44,7 @@ HaBlog.GetItemsFromServer = function () {
                 post.sections = HaBlog.ParseSections(item.content);
                 post.tags = item.tags;
                 post.comments = HaBlog.ParseComments(item.comments);
+                post.created = moment(item.created.time);
 
 
                 console.log("Adding new post");
