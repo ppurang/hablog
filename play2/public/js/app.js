@@ -37,10 +37,10 @@ HaBlog.GetItemsFromServer = function () {
                 var post = {};
 
                 post.uid = item.uid;
-                post.headline = item.headline.content;
-                post.title = item.title.content;
+                post.headline =  HaBlog.Utilities.Showdown.makeHtml(item.headline.content);
+                post.title =  HaBlog.Utilities.Showdown.makeHtml(item.title.content);
                 post.author = item.author;
-                post.summary = item.summary.content;
+                post.summary = HaBlog.Utilities.Showdown.makeHtml(item.summary.content);
                 post.sections = HaBlog.ParseSections(item.content);
                 post.tags = item.tags;
                 post.comments = HaBlog.ParseComments(item.comments);
@@ -63,12 +63,15 @@ HaBlog.InitializeMarkdownParser = function () {
 
 HaBlog.ParseSections = function(jsonContent){
     var sections = [];
+
     jsonContent.map(function(item){
+        //console.log(HaBlog.Utilities.Showdown.makeHtml(item.headline.content));
         var section = HaBlog.Section.create({
             text: item.text === undefined ? null : item.text.content === undefined ? null : HaBlog.Utilities.Showdown.makeHtml(item.text.content),
             headline : item.headline === undefined ? null : item.headline.content === undefined ? null : HaBlog.Utilities.Showdown.makeHtml(item.headline.content)
 
         });
+        console.log(section.text)
         sections.push(section);
     });
     return sections;
