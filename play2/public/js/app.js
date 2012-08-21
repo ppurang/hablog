@@ -59,11 +59,13 @@ HaBlog.ParseSections = function(jsonContent){
     var sections = [];
 
     jsonContent.map(function(item){
+        //console.log(HaBlog.Utilities.Showdown.makeHtml(item.headline.content));
         var section = HaBlog.Section.create({
             text: item.text === undefined ? null : item.text.content === undefined ? null : HaBlog.Utilities.Showdown.makeHtml(item.text.content),
             headline : item.headline === undefined ? null : item.headline.content === undefined ? null : HaBlog.Utilities.Showdown.makeHtml(item.headline.content)
 
         });
+        console.log(section.text)
         sections.push(section);
     });
     return sections;
