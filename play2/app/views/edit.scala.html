@@ -1,0 +1,11 @@
+@(editForm: play.api.data.Form[controllers.Application.SubmittedBE])
+
+@helper.form(action = routes.Application.handleEdit()) {
+        @helper.textarea(editForm("title"))
+        @helper.textarea(editForm("headline"))
+        @helper.textarea(editForm("summary"))
+        @helper.textarea(editForm("section"))
+
+        <input type="submit"/>
+}
+

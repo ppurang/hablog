@@ -5,6 +5,10 @@
 # Home page
 GET     /                            controllers.Application.index()
 
+GET     /edit                        controllers.Application.editView()
+
+POST    /edit/handle                 controllers.Application.handleEdit()
+
 GET     /blog                         controllers.Application.all()
 
 GET     /blog/:id                     controllers.Application.blog(id: String)
