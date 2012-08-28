@@ -45,6 +45,15 @@ object BlogEntryJsonDeserializer extends Function1[String, BlogEntry] {
   implicit def unapply(blogEntry: BlogEntry): String = write(blogEntry)
 }
 
+object NascentBlogEntryJsonSerializer extends Function1[NascentBlogEntry, String] {
+
+  import Serialization.formats
+
+  implicit def apply(nbe: NascentBlogEntry): String = write(nbe)
+
+  implicit def unapply(json: String): NascentBlogEntry = parse(json).extract[NascentBlogEntry]
+}
+
 object NascentBlogEntryJsonDeserializer extends Function1[String, NascentBlogEntry] {
 
   import Serialization.formats
