@@ -8,10 +8,8 @@ object ApplicationBuild extends Build {
   val appVersion = "1.0-SNAPSHOT"
 
   val appDependencies = Seq(
-    "org.purang" % "hablog-domain_2.9.1" % "0.0.1" withSources()
-    //,
-    //"org.purang" % "hablog-backend_2.9.1" % "0.0.1" withSources()
-    //"org.purang.net" % "asynch_2.9.1" % "0.2.5" withSources()
+    "org.purang" % "hablog-domain_2.9.1" % "0.0.1" withSources(),
+    "org.purang.net" % "asynch_2.9.1" % "0.2.5" withSources()
     // Add your project dependencies here,
   )
 
