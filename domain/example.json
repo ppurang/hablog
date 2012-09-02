@@ -39,7 +39,7 @@
   "comments":[{
     "uid": "123",
     "user":{
-      "twitterÍd":"@agreeable"
+      "twitterId":"@agreeable"
     },
     "text":"totally agree",
     "created":{
@@ -52,7 +52,7 @@
     "replies":[{
       "uid":"7890",
       "user":{
-        "twitterÍd":"@disagreeable"
+        "twitterId":"@disagreeable"
       },
       "text":"totally disagree with this commenter",
       "created":{
@@ -67,7 +67,7 @@
   },{
     "uid":"1234",
     "user":{
-      "twitterÍd":"@disagreeable"
+      "twitterId":"@disagreeable"
     },
     "text":"totally disagree",
     "created":{
@@ -80,7 +80,7 @@
     "replies":[{
       "uid":"5678",
       "user":{
-        "twitterÍd":"@agreeable"
+        "twitterId":"@agreeable"
       },
       "text":"totally disagree with this commenter",
       "created":{
