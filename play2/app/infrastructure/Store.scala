@@ -1,9 +1,8 @@
-package controllers
+package infrastructure
 
 import org.purang.blog.backend.Store
 import org.purang.net.http.{POST, ApplicationJson, ContentType, GET}
 import org.purang.net.http.ning._
-import org.purang.blog.domain.???
 import org.purang.blog.domain.status._
 import org.purang.blog.domain.{BlogEntryJsonSerializer, BlogEntryJsonDeserializer}
 

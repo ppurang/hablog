@@ -1,6 +1,6 @@
-@(editForm: play.api.data.Form[controllers.Application.SubmittedBE])
+@(editForm: play.api.data.Form[controllers.UI.SubmittedBE])
 
-@helper.form(action = routes.Application.handleEdit()) {
+@helper.form(action = routes.UI.handleEdit()) {
         @helper.textarea(editForm("title"))
         @helper.textarea(editForm("headline"))
         @helper.textarea(editForm("summary"))

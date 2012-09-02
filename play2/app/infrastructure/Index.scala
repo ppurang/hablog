@@ -1,7 +1,7 @@
-package controllers
+package infrastructure
 
 import org.purang.blog.backend.Index
-import org.purang.net.http.{POST, ApplicationJson, ContentType, GET}
+import org.purang.net.http.{POST, ApplicationJson, ContentType}
 import org.purang.net.http.ning._
 import org.purang.blog.domain.???
 import org.purang.blog.domain.status._
