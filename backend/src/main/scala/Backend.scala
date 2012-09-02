@@ -65,7 +65,7 @@ object `package` {
     }
   }
 
-  class EventBusActor(ebus: EventBus) {
+  class EventBusActor(ebus: EventBus) extends Actor {
 
     protected def receive = {
       case e: Event => ebus handle e
