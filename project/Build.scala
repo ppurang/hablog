@@ -87,18 +87,17 @@ object HABlogBuild extends Build {
     "hablog",
     file ("."),
     settings = buildSettings
-  ) aggregate (domain)
+  ) aggregate (domain, backend)
 
   lazy val domain = Project (
     "hablog-domain",
     file ("domain"),
-    settings = buildSettings ++ Seq (resolvers := oracleResolvers, libraryDependencies ++= Seq(liftJsonScalaz, scalatest, akkaActor, akkaSlf4j, akkaKernel, akkaRemote, akkatestkit,akkaFile))
+    settings = buildSettings ++ Seq (resolvers := oracleResolvers, libraryDependencies ++= Seq(liftJsonScalaz, scalatest))
   )
-/*
+
   lazy val backend = Project (
     "hablog-backend",
     file ("backend"),
-    settings = buildSettings ++ Seq (resolvers := oracleResolvers, libraryDependencies ++= Seq(liftJsonScalaz, akkaActor, akkaSlf4j, akkaKernel, akkaRemote, akkatestkit,scalatest))
+    settings = buildSettings ++ Seq (resolvers := oracleResolvers, libraryDependencies ++= Seq(liftJsonScalaz, scalatest, akkaActor, akkaSlf4j, akkaKernel, akkaRemote, akkatestkit,akkaFile))
   ) dependsOn(domain)
-*/
 }
