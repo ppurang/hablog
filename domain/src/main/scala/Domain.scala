@@ -4,6 +4,8 @@ import java.util
 
 object `package` {
 
+  def ??? = throw new UnsupportedOperationException("not yet")
+
   trait Unique[+A] {
     def uid: String
   }
@@ -113,7 +115,7 @@ case class Rating(likes: Int, dislikes: Int) {
   def dislike() = Rating(this.likes, this.dislikes + 1)
 }
 
-case class User(twitterÍd: String)
+case class User(twitterId: String) //todo WTF  Í is not I
 
 case class NascentComment(someUser: User, comment: String)  {
   def toComment() : Comment = Comment(user = someUser, text = comment, created = Some(Created()), rating = None, replies
@@ -143,7 +145,11 @@ case class BlogEntry(uid: String,
                      rating: Option[Rating] = None,
                      comments: List[Comment] = List()
                       )
-  extends Unique[BlogEntry]
+  extends Unique[BlogEntry] {
+
+  //todo state changes should only be allowed in a given order (next prev)
+
+}
 
 case class Created(time: Long = System.currentTimeMillis())
 
