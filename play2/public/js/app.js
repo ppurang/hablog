@@ -1,5 +1,3 @@
-
-
 /******************************************************/
 /*				INITS			            		  */
 /******************************************************/
@@ -50,6 +48,24 @@ HaBlog.GetItemsFromServer = function () {
     });
 }
 
+HaBlog.CreatePostFromJSon = function (item){
+    //console.log(item);
+
+    var post = HaBlog.Post.create();
+
+    post.set('uid', item.uid);
+    post.set('headline', HaBlog.Utilities.Showdown.makeHtml(item.headline.content));
+    post.set('title', HaBlog.Utilities.Showdown.makeHtml(item.title.content));
+    post.set('author', item.author);
+    post.set('summary', HaBlog.Utilities.Showdown.makeHtml(item.summary.content));
+    post.set('sections', HaBlog.ParseSections(item.content.sections));
+    post.set('tags', item.tags);
+    post.set('comments', HaBlog.ParseComments(item.comments));
+    post.set('created', moment(item.created.time));
+
+    return post;
+}
+
 
 HaBlog.InitializeMarkdownParser = function () {
     HaBlog.Utilities.Showdown = new Showdown.converter();
@@ -59,13 +75,11 @@ HaBlog.ParseSections = function(jsonContent){
     var sections = [];
 
     jsonContent.map(function(item){
-        //console.log(HaBlog.Utilities.Showdown.makeHtml(item.headline.content));
         var section = HaBlog.Section.create({
             text: item.text === undefined ? null : item.text.content === undefined ? null : HaBlog.Utilities.Showdown.makeHtml(item.text.content),
             headline : item.headline === undefined ? null : item.headline.content === undefined ? null : HaBlog.Utilities.Showdown.makeHtml(item.headline.content)
 
         });
-        console.log(section.text)
         sections.push(section);
     });
     return sections;
@@ -82,7 +96,7 @@ HaBlog.ParseComments = function (jsonContent){
                 likes: item.rating === undefined ? 0 : item.rating.likes === undefined ? 0 : item.rating.likes,
                 dislikes: item.rating === undefined ? 0 : item.rating.dislikes === undefined ? 0 : item.rating.dislikes
             }),
-            replies: item.replies
+            replies: HaBlog.ParseComments(item.replies)
         });
         comments.push(comment);
     });
@@ -135,7 +149,7 @@ HaBlog.Comment = Em.Object.extend({
         return (this.get('created').fromNow());
     }.property('created'),
     rating:null,
-    replies:null
+    replies:[]
 });
 
 // RATING COMPONENT
