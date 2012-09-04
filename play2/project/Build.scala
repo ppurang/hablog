@@ -18,7 +18,7 @@ object ApplicationBuild extends Build {
         ExclusionRule(organization = "com.sun.jdmk"),
         ExclusionRule(organization = "com.sun.jmx"),
         ExclusionRule(organization = "mail"),
-        ExclusionRule(organization = "jms"),
+        ExclusionRule(organization = "javax.jms"),
         ExclusionRule(organization = "javax"),
         ExclusionRule(organization = "jline")
       ),
@@ -28,7 +28,7 @@ object ApplicationBuild extends Build {
           ExclusionRule(organization = "com.sun.jdmk"),
           ExclusionRule(organization = "com.sun.jmx"),
           ExclusionRule(organization = "mail"),
-          ExclusionRule(organization = "jms"),
+          ExclusionRule(organization = "javax.jms"),
           ExclusionRule(organization = "javax"),
           ExclusionRule(organization = "jline")
         )
