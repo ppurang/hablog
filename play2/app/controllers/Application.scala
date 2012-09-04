@@ -78,7 +78,7 @@ object Examples {
         ),
         Section(
           Some(Headline("The need")),
-          Text( """<p class="bla">[Twitter](http://twitter.com) is too terse; \n most journals have more ads then real content; \n a private diary isn't social enough.</p><p>A good blog is about content, content and content. \n A great or unique writing style makes the difference when content is not a problem. \n All other things equal a great design and technological schnickschnack give the blog that aura of invincibility.</p>""")
+          Text( """[Twitter](http://twitter.com) is too terse; \n most journals have more ads then real content; \n a private diary isn't social enough.</p><p>A good blog is about content, content and content. \n A great or unique writing style makes the difference when content is not a problem. \n All other things equal a great design and technological schnickschnack give the blog that aura of invincibility.""")
         )
       ),
       List(Tag("blog"), Tag("writing")),
