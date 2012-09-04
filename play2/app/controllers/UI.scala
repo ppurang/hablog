@@ -16,6 +16,10 @@ object UI extends Controller {
     Ok(views.html.index())
   }
 
+  def health = Action{
+    Ok(Results.EmptyContent())
+  }
+
   import play.api.data._
   import play.api.data.Forms._
   import play.api.data.validation.Constraints._
@@ -24,13 +28,13 @@ object UI extends Controller {
     def asNBE = NascentBlogEntry(title.map(Headline(_)), Headline(headline), summary.map(Text(_)), List(Section(None, Text(text))))
   }
 
-  val editForm : Form[SubmittedBE]= Form(
-  mapping(
-  "title" -> optional(text),
-  "headline" -> nonEmptyText,
-  "summary" -> optional(text),
-  "section" -> nonEmptyText
-  )(SubmittedBE.apply)(SubmittedBE.unapply)
+  val editForm: Form[SubmittedBE] = Form(
+    mapping(
+      "title" -> optional(text),
+      "headline" -> nonEmptyText,
+      "summary" -> optional(text),
+      "section" -> nonEmptyText
+    )(SubmittedBE.apply)(SubmittedBE.unapply)
   )
 
   def editView() = Secured("admin", adminSecret.getOrElse("my very secure password")) {

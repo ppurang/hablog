@@ -3,24 +3,26 @@
 # ~~~~
 
 # Home page
-GET     /                            controllers.UI.index()
+GET     /                                controllers.UI.index()
 
-GET     /edit                        controllers.UI.editView()
+HEAD    /health                          controllers.UI.health()
 
-POST    /edit/handle                 controllers.UI.handleEdit()
+GET     /edit                            controllers.UI.editView()
 
-GET     /blog                         controllers.WebServices.all()
+POST    /edit/handle                     controllers.UI.handleEdit()
 
-GET     /blog/:id                     controllers.WebServices.blog(id: String)
+GET     /blog                            controllers.WebServices.all()
 
-POST    /blog                         controllers.WebServices.createBlog()
+GET     /blog/:id                        controllers.WebServices.blog(id: String)
 
-POST     /blog/:id/state/:state       controllers.WebServices.changeState(id: String, state: String)
+POST    /blog                            controllers.WebServices.createBlog()
 
-POST     /blog/:id/:user/comment       controllers.WebServices.addOrReplaceComment(id: String, user:String, ids: String = "")
+POST    /blog/:id/state/:state           controllers.WebServices.changeState(id: String, state: String)
 
-POST     /blog/:id/:user/comment/*ids       controllers.WebServices.addOrReplaceComment(id: String, user:String, ids: String)
+POST    /blog/:id/:user/comment          controllers.WebServices.addOrReplaceComment(id: String, user:String, ids: String = "")
+
+POST    /blog/:id/:user/comment/*ids     controllers.WebServices.addOrReplaceComment(id: String, user:String, ids: String)
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file                 controllers.Assets.at(path="/public", file)
+GET     /assets/*file                    controllers.Assets.at(path="/public", file)
 
