@@ -11,7 +11,27 @@ object ApplicationBuild extends Build {
     "org.purang" % "hablog-domain_2.9.1" % "0.0.1" withSources(),
     "org.purang" % "hablog-backend_2.9.1" % "0.0.1" withSources(),
     "org.purang.net" % "asynch_2.9.1" % "0.2.5" withSources(),
-    "kafka" % "kafka" % "0.7.1"from "file:///home/ppurang/.ivy2/local/kafka/core-kafka_2.8.0/0.7.1/jars/kafka.jar"
+    "kafka" % "kafka" % "0.7.1"from "file:///home/ppurang/.ivy2/local/kafka/core-kafka_2.9.1/0.7.1/jars/kafka.jar",
+    "org.apache.zookeeper" % "zookeeper" % "3.3.4" withSources() excludeAll(
+        ExclusionRule(organization = "log4j"),
+        ExclusionRule(organization = "javax"),
+        ExclusionRule(organization = "com.sun.jdmk"),
+        ExclusionRule(organization = "com.sun.jmx"),
+        ExclusionRule(organization = "mail"),
+        ExclusionRule(organization = "jms"),
+        ExclusionRule(organization = "javax"),
+        ExclusionRule(organization = "jline")
+      ),
+  "com.github.sgroschupf" % "zkclient" % "0.1" excludeAll(
+          ExclusionRule(organization = "log4j"),
+          ExclusionRule(organization = "javax"),
+          ExclusionRule(organization = "com.sun.jdmk"),
+          ExclusionRule(organization = "com.sun.jmx"),
+          ExclusionRule(organization = "mail"),
+          ExclusionRule(organization = "jms"),
+          ExclusionRule(organization = "javax"),
+          ExclusionRule(organization = "jline")
+        )
     // Add your project dependencies here,
   )
 

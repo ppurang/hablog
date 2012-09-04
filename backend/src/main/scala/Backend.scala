@@ -45,7 +45,7 @@ object `package` {
 
   class Failures(val hint: String) extends Actor {
     protected def receive = {
-      case e => {
+      case e:FailedEvent => {
         println("+[%s FAILURE] %s".format(hint, e))
       }
     }
@@ -54,11 +54,7 @@ object `package` {
 
   class BackendMultiplexer extends Actor {
     protected def receive = {
-      case e => {
-        //println("new blog entry being created " + e)
-        //val selection = system.actorSelection("store")
-        //val selection = system.actorSelection("store")
-        ///println(selection)
+      case (e : Event) if !e.isInstanceOf[FailedEvent]=> {
         system.actorFor("akka://HaBlogSystem/user/store") ! e
         system.actorFor("akka://HaBlogSystem/user/ebus") ! e
       }
