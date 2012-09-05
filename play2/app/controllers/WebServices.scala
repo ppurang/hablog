@@ -44,7 +44,7 @@ object WebServices extends Controller {
 
   val mp = org.purang.blog.backend.system.actorOf(Props[BackendMultiplexer], "mp")
   val riakActor = org.purang.blog.backend.system.actorOf(Props(new StoreActor(riak)), "store")
-  //val esActor = org.purang.blog.backend.system.actorOf(Props(new EventBusActor(kafka)), "ebus")
+  val esActor = org.purang.blog.backend.system.actorOf(Props(new IndexActor(es)), "index")
 
   val storeSuccesses = org.purang.blog.backend.system.actorOf(Props(new Successes("STORAGE")), "store-successes")
   val storeFailures = org.purang.blog.backend.system.actorOf(Props(new Failures(("STORAGE"))), "store-failures")
