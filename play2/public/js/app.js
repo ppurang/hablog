@@ -208,3 +208,25 @@ HaBlog.PostSummaryListView = Em.View.extend({
     }.property('HaBlog.postsController.@each.comments')
 });
 
+
+/******************************************************/
+/*				ROUTER								  */
+/******************************************************/
+
+HaBlog.Router = Ember.Router.extend({
+    root: Ember.Route.extend({
+        index: Ember.Route.extend({
+            route: '/',
+            redirectsTo: 'posts'
+        }),
+        posts: Ember.Route.extend({
+            route: '/posts',
+            connectOutlets: function(router) {
+                router.get('postsController').connectOutlet('posts', App.Post.find());
+            }
+        }),
+        post: Ember.Route.extend({
+            route: '/posts/:post_id'
+        })
+    })
+});
