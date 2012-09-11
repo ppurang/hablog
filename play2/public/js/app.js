@@ -32,8 +32,10 @@ HaBlog.Utilities = {
 
 HaBlog.GetItemsFromServer = function () {
     console.log("tachan");
-    $.getJSON(HaBlog.CONSTANTS.PATH_CONTEXT+HaBlog.CONSTANTS.PATH_BLOG_LIST,
-        function(data) {
+    $.ajax({
+        url:HaBlog.CONSTANTS.PATH_CONTEXT+HaBlog.CONSTANTS.PATH_BLOG_LIST,
+        async:false,
+        success: function(data) {
             // Use map to iterate through the items and create a new JSON object for
             // each item
             data.map(function(item) {
@@ -55,8 +57,9 @@ HaBlog.GetItemsFromServer = function () {
 
                 var emberPost = HaBlog.Post.create(post);
                 HaBlog.postListController.addPost(post);
-
             });
+            console.log("Finished loading");
+    }
     });
 }
 
@@ -199,6 +202,11 @@ HaBlog.PostListController = Ember.ArrayController.extend({
     }
 });
 
+// Define the main application controller. This is automatically picked up by
+// the application and initialized.
+HaBlog.PostController = Ember.Controller.extend({
+});
+
 /******************************************************/
 /*				VIEWS								  */
 /******************************************************/
@@ -212,7 +220,9 @@ HaBlog.PostListView = Em.View.extend({
     }
 });
 
-HaBlog.PostSummaryView = Em.View.extend({
+//View for the single Post
+HaBlog.PostView = Em.View.extend({
+    templateName:'post'
 });
 
 HaBlog.ApplicationView = Ember.View.extend({
@@ -232,23 +242,27 @@ HaBlog.Router = Ember.Router.extend({
         }),
         posts: Ember.Route.extend({
             route: '/posts',
-            //showPost: Ember.Route.transitionTo('post'),
+            showPost: Ember.Route.transitionTo('post'),
             connectOutlets: function(router) {
-                HaBlog.GetItemsFromServer();
                 router.get('applicationController').connectOutlet('postList');
             }
         }),
         post: Ember.Route.extend({
-            route: '/posts/:post_id'
+            route: '/posts/:uid',
+            connectOutlets: function(router, post) {
+                var targetPost = HaBlog.postListController.findProperty('uid', post.uid);
+                router.get('applicationController').connectOutlet('post', targetPost);
+                console.log(targetPost);
+                console.log(router.get('postController'));
+            }
         })
     })
 });
 
 
 $(function() {
-    console.log("ho");
     HaBlog.InitializeMarkdownParser();
     HaBlog.postListController = HaBlog.PostListController.create();
-
+    HaBlog.GetItemsFromServer();
     HaBlog.initialize();
 });

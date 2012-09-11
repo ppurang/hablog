@@ -132,7 +132,8 @@
                         {{/each}}
                     </section>
                     <div class="postMore">
-                        <span class="toggleButton" >READ MORE</span>
+                        <span class="toggleButton" {{action showPost this href=true}}>READ MORE</span>
+                        <!--<span class="toggleButton">READ MORE</span>
                         <!--<span class="toggleButton" style="display:none">READ LESS</span> -->
                     </div>
                     <div class="clear" style="float:clear"></div>
@@ -140,6 +141,11 @@
             </div>
         </article>
         {{/each}}
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="post">
+       Hey!
+        {{headline}}
     </script>
 
 		<!-- The missing protocol means that it will match the current protocol, either http or https. If running locally, we use the local jQuery. -->
