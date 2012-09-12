@@ -115,6 +115,7 @@ case class Rating(likes: Int, dislikes: Int) {
   def dislike() = Rating(this.likes, this.dislikes + 1)
 }
 
+<<<<<<< HEAD
 case class User(twitterId: String) //todo WTF  Í is not I
 
 case class NascentComment(someUser: User, comment: String)  {
@@ -122,6 +123,9 @@ case class NascentComment(someUser: User, comment: String)  {
     = Nil)
 }
 
+=======
+case class User(twitterId: String)
+>>>>>>> Fixed the twitterId typo
 
 case class Comment(uid: String = util.UUID.randomUUID().toString, user: User, text: String, created: Option[Created], rating: Option[Rating], replies: List[Comment]) extends Unique[Comment]
 
