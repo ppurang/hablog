@@ -478,3 +478,20 @@ h1 {
     float: right;
     border-bottom: 1px solid #D6CDCD;
 }
+
+/* COMMENTS */
+#postComments h1{
+    border-bottom: 1px solid #D6CDCD;
+    font-weight:lighter;
+    font-size:40px;
+}
+
+#postComments .comment{
+    background-color: #FAFAFA;
+    border: 2px solid rgba(207, 207, 198, 0.56);
+    padding: 15px;
+    -webkit-box-shadow: 7px 7px 5px rgba(50, 50, 50, 0.5);
+    -moz-box-shadow: 7px 7px 5px rgba(50, 50, 50, 0.5);
+    box-shadow: 7px 7px 5px rgba(50, 50, 50, 0.5);
+    margin-bottom: 20px;
+}
