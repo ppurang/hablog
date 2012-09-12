@@ -113,7 +113,7 @@ case class Rating(likes: Int, dislikes: Int) {
   def dislike() = Rating(this.likes, this.dislikes + 1)
 }
 
-case class User(twitterÍd: String)
+case class User(twitterId: String)
 
 case class Comment(uid: String = util.UUID.randomUUID().toString, user: User, text: String, created: Option[Created], rating: Option[Rating], replies: List[Comment]) extends Unique[Comment]
 
