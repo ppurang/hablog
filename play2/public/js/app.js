@@ -31,7 +31,6 @@ HaBlog.Utilities = {
 
 
 HaBlog.GetItemsFromServer = function () {
-    console.log("tachan");
     $.ajax({
         url:HaBlog.CONSTANTS.PATH_CONTEXT+HaBlog.CONSTANTS.PATH_BLOG_LIST,
         async:false,
@@ -40,7 +39,6 @@ HaBlog.GetItemsFromServer = function () {
             // each item
             data.map(function(item) {
                 //console.log(item);
-                //console.log(HaBlog.postListController.content);
 
                 var post = HaBlog.Post.create();
 
@@ -54,8 +52,6 @@ HaBlog.GetItemsFromServer = function () {
                 post.set('comments', HaBlog.ParseComments(item.comments));
                 post.set('created', moment(item.created.time));
 
-
-                var emberPost = HaBlog.Post.create(post);
                 HaBlog.postListController.addPost(post);
             });
             console.log("Finished loading");
@@ -204,7 +200,7 @@ HaBlog.PostListController = Ember.ArrayController.extend({
 
 // Define the main application controller. This is automatically picked up by
 // the application and initialized.
-HaBlog.PostController = Ember.Controller.extend({
+HaBlog.PostController = Ember.ObjectController.extend({
 });
 
 /******************************************************/
@@ -212,17 +208,21 @@ HaBlog.PostController = Ember.Controller.extend({
 /******************************************************/
 // View for the Post list
 HaBlog.PostListView = Em.View.extend({
-    templateName:'postList',
-    toggleButtons:function (event, view) {
+    templateName:'postList'
+    /*toggleButtons:function (event, view) {
         this.$('.fullText').fadeToggle("400", "linear", function () {
             $(this).closest(".post").find(".toggleButton").toggle();
         });
-    }
+    } */
 });
 
 //View for the single Post
 HaBlog.PostView = Em.View.extend({
-    templateName:'post'
+    templateName:'post',
+    dateAgo: function(){
+        console.log(this)
+        return moment(this.get('created')).fromNow();
+    }
 });
 
 HaBlog.ApplicationView = Ember.View.extend({
@@ -240,6 +240,9 @@ HaBlog.Router = Ember.Router.extend({
             route: '/',
             redirectsTo: 'posts'
         }),
+        showMain: function(router, context) {
+            router.transitionTo('posts');
+        },
         posts: Ember.Route.extend({
             route: '/posts',
             showPost: Ember.Route.transitionTo('post'),
@@ -252,8 +255,6 @@ HaBlog.Router = Ember.Router.extend({
             connectOutlets: function(router, post) {
                 var targetPost = HaBlog.postListController.findProperty('uid', post.uid);
                 router.get('applicationController').connectOutlet('post', targetPost);
-                console.log(targetPost);
-                console.log(router.get('postController'));
             }
         })
     })
