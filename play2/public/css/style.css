@@ -232,3 +232,9 @@ h1 {
     box-shadow: 7px 7px 5px rgba(50, 50, 50, 0.5);
     margin-bottom: 20px;
 }
+
+#postComments .commentDate{
+    color: #C0C0B5;
+    float: right;
+    border-bottom: 1px solid #D6CDCD;
+}

@@ -4,15 +4,6 @@
 /*				INITS			            		  */
 /******************************************************/
 var HaBlog = Em.Application.create({
-
-    /*ready:function () {
-       this._super();
-
-        console.log("hey");
-
-
-        //HaBlog.GetItemsFromServer();
-    }  */
 });
 
 
@@ -137,7 +128,10 @@ HaBlog.Section = Em.Object.extend({
 HaBlog.Comment = Em.Object.extend({
     user:null,
     text:null,
-    created:moment().subtract('years', 100),
+    created: moment().subtract('years', 100),
+    createdAgo: function(){
+        return (this.get('created').fromNow());
+    }.property('created'),
     rating:null,
     replies:null
 });
@@ -192,15 +186,16 @@ HaBlog.PostListController = Ember.ArrayController.extend({
             return this.binarySearch(value, low, mid);
         }
         return mid;
-    },
-    commentsCount : function() {
-        return this.get('comments').get('length');
     }
 });
 
 // Define the main application controller. This is automatically picked up by
 // the application and initialized.
 HaBlog.PostController = Ember.ObjectController.extend({
+    postedAgo: function(){
+        console.log("here");
+        return "hey";
+    }
 });
 
 /******************************************************/
@@ -209,20 +204,11 @@ HaBlog.PostController = Ember.ObjectController.extend({
 // View for the Post list
 HaBlog.PostListView = Em.View.extend({
     templateName:'postList'
-    /*toggleButtons:function (event, view) {
-        this.$('.fullText').fadeToggle("400", "linear", function () {
-            $(this).closest(".post").find(".toggleButton").toggle();
-        });
-    } */
 });
 
 //View for the single Post
 HaBlog.PostView = Em.View.extend({
-    templateName:'post',
-    dateAgo: function(){
-        console.log(this)
-        return moment(this.get('created')).fromNow();
-    }
+    templateName:'post'
 });
 
 HaBlog.ApplicationView = Ember.View.extend({
@@ -241,18 +227,21 @@ HaBlog.Router = Ember.Router.extend({
             redirectsTo: 'posts'
         }),
         showMain: function(router, context) {
+            console.log("routing to main page");
             router.transitionTo('posts');
         },
         posts: Ember.Route.extend({
             route: '/posts',
             showPost: Ember.Route.transitionTo('post'),
             connectOutlets: function(router) {
+                console.log("routing to post list");
                 router.get('applicationController').connectOutlet('postList');
             }
         }),
         post: Ember.Route.extend({
             route: '/posts/:uid',
             connectOutlets: function(router, post) {
+                console.log("redirecting to post")
                 var targetPost = HaBlog.postListController.findProperty('uid', post.uid);
                 router.get('applicationController').connectOutlet('post', targetPost);
             }

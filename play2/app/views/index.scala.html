@@ -31,7 +31,6 @@
     <![endif]-->
 </head>
 <body>
-<!-- CONTAINER -->
 <script type="text/x-handlebars" data-template-name="application">
     <div class="container-fluid fill">
 
@@ -59,11 +58,9 @@
             <div class="span2 hidden-phone hidden-tablet"></div>
 
             <!-- CONTENT GOES HERE -->
-            <section id="postList">
-                <div class="span7 centerContainer">
-                 {{outlet}}
-                </div>
-            </section>
+            <div class="span7 centerContainer">
+                {{outlet}}
+            </div>
 
             <!-- SIDE BAR MENU -->
             <nav>
@@ -88,73 +85,23 @@
 
 </script>
 
-    <script type="text/x-handlebars" data-template-name="postList">
-        {{#each HaBlog.postListController}}
-        <article>
-            <div class="post span11">
-                <header>
-                    <div class="postDate">
-                        <span class="day">{{creationDay}}</span>
-                        <span class="month">{{creationMonth}}</span>
-                        <span class="year">{{creationYear}}</span>
-                    </div>
-                    <div class="postTitle">
-                        <span><h1>{{{title}}}</h1></span>
-                        <small>
-                            <span class="comments">
-                                <i class="icon-comment"> </i>
-                                <span>{{commentsCount}}</span>
-                            </span>
-                            <span class="tags">
-                                <i class="icon-tags"> </i>
-                                    <span>
-                                        {{#each tags}}
-                                            <a href="#">{{tag}}</a>
-                                        {{/each}}
-                                    </span>
-                            </span>
-                            <span class="author">
-                                Posted by <a href="#">{{author}}</a>
-                            </span>
-                        </small>
-                    </div>
-                </header>
-                <div class="postContent">
-                    <section class="summary">
-                        <p>{{{summary}}}</p>
-                    </section>
-                    <section class="fullText">
-                        {{#each sections}}
-                        {{#if headline}}
-                        <span><h2>{{{headline}}}</h2></span>
-                        {{/if}}
-                        <p>{{{text}}}</p>
-                        {{/each}}
-                    </section>
-                    <div class="postMore">
-                        <span class="toggleButton" {{action showPost this href=true}}>READ MORE</span>
-                        <!--<span class="toggleButton">READ MORE</span>
-                        <!--<span class="toggleButton" style="display:none">READ LESS</span> -->
-                    </div>
-                    <div class="clear" style="float:clear"></div>
-                </div>
-            </div>
-        </article>
-        {{/each}}
-    </script>
 
-    <script type="text/x-handlebars" data-template-name="post">
-       <article>
-           <div class="post span11">
-               <header>
-                   <div class="postDate">
-                       <span class="day">{{creationDay}}</span>
-                       <span class="month">{{creationMonth}}</span>
-                       <span class="year">{{creationYear}}</span>
-                   </div>
-                   <div class="postTitle">
-                       <span><h1>{{{title}}}</h1></span>
-                       <small>
+
+<!-- FULL POST TEMPLATE -->
+<script type="text/x-handlebars" data-template-name="post">
+    <article>
+        <div class="post span11">
+
+            <!-- POST HEADER -->
+            <header>
+                <div class="postDate">
+                    <span class="day">{{creationDay}}</span>
+                    <span class="month">{{creationMonth}}</span>
+                    <span class="year">{{creationYear}}</span>
+                </div>
+                <div class="postTitle">
+                    <span><h1>{{{title}}}</h1></span>
+                    <small>
                         <span class="comments">
                             <i class="icon-comment"> </i>
                             <span>{{commentsCount}}</span>
@@ -170,59 +117,123 @@
                         <span class="author">
                             Posted by <a href="#">{{author}}</a>
                         </span>
-                       </small>
-                   </div>
-               </header>
-                   <div class="postContent">
-                           <p>{{{summary}}}</p>
-                           {{#each sections}}
-                           {{#if headline}}
-                           <span><h2>{{{headline}}}</h2></span>
-                           {{/if}}
-                           <p>{{{text}}}</p>
-                           {{/each}}
-                       </section>
-                       <div class="clear" style="float:clear"></div>
-                   </div>
-              </div>
+                    </small>
+                </div>
+            </header>
 
-           {{#if comments}}
-               <div id="postComments" class="span10">
-                   <h1>Comments</h1>
-                   {{#each comments}}
-                    <div class="comment">
-                        <span class="date">
-                            {{dateAgo}}
-                        </span>
+            <!-- POST CONTENT -->
+            <div class="postContent">
+                <p>{{{summary}}}</p>
+                {{#each sections}}
+                {{#if headline}}
+                <span><h2>{{{headline}}}</h2></span>
+                {{/if}}
+                <p>{{{text}}}</p>
+                {{/each}}
+                </section>
+                <div class="clear" style="float:clear"></div>
+            </div>
+
+        </div>
+
+        <!-- POST COMMENTS -->
+        <div id="postComments" class="span10">
+            <h1>Comments</h1>
+            {{#each comments}}
+            <div class="comment">
+                <small>
+                    <span class="commentDate">
+                        {{createdAgo}}
+                    </span>
+                </small>
+                    <span class="commentText">
                         {{text}}
-                    </div>
-                   {{/each}}
-               </div>
-           {{/if}}
+                    </span>
+            </div>
+            {{/each}}
+        </div>
 
-       </article>
-    </script>
+    </article>
+</script>
 
-		<!-- The missing protocol means that it will match the current protocol, either http or https. If running locally, we use the local jQuery. -->
-		<!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-		<script>
-			window.jQuery || document.write('<script src=@routes.Assets.at("js/libs/jquery-1.7.2.min.js")"><\/script>')
-		</script>-->
+<!-- POST LIST TEMPLATE -->
+<script type="text/x-handlebars" data-template-name="postList">
+    {{#each HaBlog.postListController}}
+    <article>
+        <div class="post span11">
+            <header>
+                <div class="postDate">
+                    <span class="day">{{creationDay}}</span>
+                    <span class="month">{{creationMonth}}</span>
+                    <span class="year">{{creationYear}}</span>
+                </div>
+                <div class="postTitle">
+                    <span><h1>{{{title}}}</h1></span>
+                    <small>
+                            <span class="comments">
+                                <i class="icon-comment"> </i>
+                                <span>{{commentsCount}}</span>
+                            </span>
+                            <span class="tags">
+                                <i class="icon-tags"> </i>
+                                    <span>
+                                        {{#each tags}}
+                                            <a href="#">{{tag}}</a>
+                                        {{/each}}
+                                    </span>
+                            </span>
+                            <span class="author">
+                                Posted by <a href="#">{{author}}</a>
+                            </span>
+                    </small>
+                </div>
+            </header>
+            <div class="postContent">
+                <section class="summary">
+                    <p>{{{summary}}}</p>
+                </section>
+                <section class="fullText">
+                    {{#each sections}}
+                    {{#if headline}}
+                    <span><h2>{{{headline}}}</h2></span>
+                    {{/if}}
+                    <p>{{{text}}}</p>
+                    {{/each}}
+                </section>
+                <div class="postMore">
+                    <span class="toggleButton" {{action showPost this href=true}}>READ MORE</span>
+                    <!--<span class="toggleButton">READ MORE</span>
+                <!--<span class="toggleButton" style="display:none">READ LESS</span> -->
+                </div>
+                <div class="clear" style="float:clear"></div>
+            </div>
+        </div>
+    </article>
+    {{/each}}
+</script>
 
-		<!--<script src="js/libs/moment-1.7.0.min.js"></script>
-		<script src="js/libs/ember-0.9.8.1.min.js"></script>
-		<script src="js/app.js"></script>
-		<script src="js/hablog.js"></script>
-        <script src="js/dev-helper.js"></script>-->
+
+<!-- The missing protocol means that it will match the current protocol, either http or https. If running locally, we use the local jQuery. -->
+<!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script>
+            window.jQuery || document.write('<script src=@routes.Assets.at("js/libs/jquery-1.7.2.min.js")"><\/script>')
+        </script>-->
+
+<!--<script src="js/libs/moment-1.7.0.min.js"></script>
+<script src="js/libs/ember-0.9.8.1.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/hablog.js"></script>
+<script src="js/dev-helper.js"></script>-->
 
 
-        <script src="@routes.Assets.at("js/libs/jquery-1.7.2.min.js")"></script>
-        <script src="@routes.Assets.at("js/libs/moment-1.7.0.min.js")"></script>
-        <script src="@routes.Assets.at("js/libs/showdown.js")"></script>
-        <script src="@routes.Assets.at("js/libs/handlebars-1.0.0.beta.6.js")"></script>
-        <script src="@routes.Assets.at("js/libs/ember-1.0.pre.js")"></script>
-        <script src="@routes.Assets.at("js/app.js")"></script>
-        <script src="@routes.Assets.at("js/hablog.js")"></script>
-        <script src="@routes.Assets.at("js/dev-helper.js")"></script>
-	</body>
+<script src="@routes.Assets.at("js/libs/jquery-1.7.2.min.js")"></script>
+<script src="@routes.Assets.at("js/libs/moment-1.7.0.min.js")"></script>
+<script src="@routes.Assets.at("js/libs/showdown.js")"></script>
+<script src="@routes.Assets.at("js/libs/handlebars-1.0.0.beta.6.js")"></script>
+<script src="@routes.Assets.at("js/libs/ember-1.0.pre.js")"></script>
+<script src="@routes.Assets.at("js/app.js")"></script>
+<script src="@routes.Assets.at("js/hablog.js")"></script>
+<script src="@routes.Assets.at("js/dev-helper.js")"></script>
+</body>
 </html>
+
