@@ -68,7 +68,7 @@ object Examples {
       Nascent,
       Option(Created(1343224588265l)),
       None,
-      Some(Headline("Finally, First *blog post* ever")),
+      Some(Headline("Finally, First *blog post* ever 1")),
       Headline("First *blog post* ever"),
       Some(Text("This journey took a long time. It almost never started and then it had many close calls. This post narrates this story.")),
       List(
@@ -84,16 +84,16 @@ object Examples {
       List(Tag("blog"), Tag("writing")),
       Some(InitialLike),
       List(
-        Comment(uuid.toString, User("@agreeable"), "totally agree", Option(Created()), Option(InitialLike), Nil),
-        Comment(uuid.toString,User("@disagreeable"), "totally disagree", Option(Created())  , Option(InitialDisLike), Nil)
+        Comment(uuid.toString, User("@agreeable"), "totally agree 1", Option(Created()), Option(InitialLike), Nil),
+        Comment(uuid.toString,User("@disagreeable"), "totally disagree 1", Option(Created())  , Option(InitialDisLike), Nil)
       )
     )
   val e02 = BlogEntry(
-      HintedUUIDUniqueIdGenerator("First *blog post* ever"),
+      HintedUUIDUniqueIdGenerator("First *blog post* ever 2"),
       Nascent,
       Option(Created(1343224588265l)),
       None,
-      Some(Headline("Finally, First *blog post* ever")),
+      Some(Headline("Finally, First *blog post* ever 2")),
       Headline("First *blog post* ever"),
       Some(Text("This journey took a long time. It almost never started and then it had many close calls. This post narrates this story.")),
       List(
@@ -109,8 +109,8 @@ object Examples {
       List(Tag("blog"), Tag("writing")),
       Some(InitialLike),
       List(
-        Comment(uuid.toString,User("@agreeable"), "totally agree", Option(Created()), Option(InitialLike), Nil),
-        Comment(uuid.toString,User("@disagreeable"), "totally disagree", Option(Created())  , Option(InitialDisLike), Nil)
+        Comment(uuid.toString,User("@agreeable"), "totally agree 2", Option(Created()), Option(InitialLike), Nil),
+        Comment(uuid.toString,User("@disagreeable"), "totally disagree 2", Option(Created())  , Option(InitialDisLike), Nil)
       )
     )
   val e03 = BlogEntry(
@@ -118,7 +118,7 @@ object Examples {
       Nascent,
       Option(Created(1343224588265l)),
       None,
-      Some(Headline("Finally, First *blog post* ever")),
+      Some(Headline("Finally, First *blog post* ever 3")),
       Headline("First *blog post* ever"),
       Some(Text("This journey took a long time. It almost never started and then it had many close calls. This post narrates this story.")),
       List(
@@ -134,8 +134,8 @@ object Examples {
       List(Tag("blog"), Tag("writing")),
       Some(InitialLike),
       List(
-        Comment(uuid.toString,User("@agreeable"), "totally agree", Option(Created()), Option(InitialLike), Nil),
-        Comment(uuid.toString,User("@disagreeable"), "totally disagree", Option(Created())  , Option(InitialDisLike), Nil)
+        Comment(uuid.toString,User("@agreeable"), "totally agree 3", Option(Created()), Option(InitialLike), Nil),
+        Comment(uuid.toString,User("@disagreeable"), "totally disagree 3", Option(Created())  , Option(InitialDisLike), Nil)
       )
     )
   val e04 = BlogEntry(
@@ -143,7 +143,7 @@ object Examples {
       Nascent,
       Option(Created(1343224588265l)),
       None,
-      Some(Headline("Finally, First *blog post* ever")),
+      Some(Headline("Finally, First *blog post* ever 4")),
       Headline("First *blog post* ever"),
       Some(Text("This journey took a long time. It almost never started and then it had many close calls. This post narrates this story.")),
       List(
@@ -159,16 +159,16 @@ object Examples {
       List(Tag("blog"), Tag("writing")),
       Some(InitialLike),
       List(
-        Comment(uuid.toString,User("@agreeable"), "totally agree", Option(Created()), Option(InitialLike), Nil),
-        Comment(uuid.toString,User("@disagreeable"), "totally disagree", Option(Created())  , Option(InitialDisLike), Nil)
+        Comment(uuid.toString,User("@agreeable"), "totally agree 4", Option(Created()), Option(InitialLike), Nil),
+        Comment(uuid.toString,User("@disagreeable"), "totally disagree 4", Option(Created())  , Option(InitialDisLike), Nil)
       )
     )
   val e05 = BlogEntry(
-      HintedUUIDUniqueIdGenerator("First *blog post* ever"),
+      HintedUUIDUniqueIdGenerator("First *blog post* ever 5"),
       Nascent,
       Option(Created(1343224588265l)),
       None,
-      Some(Headline("Finally, First *blog post* ever")),
+      Some(Headline("Finally, First *blog post* ever 5 ")),
       Headline("First *blog post* ever"),
       Some(Text("This journey took a long time. It almost never started and then it had many close calls. This post narrates this story.")),
       List(
@@ -184,8 +184,8 @@ object Examples {
       List(Tag("blog"), Tag("writing")),
       Some(InitialLike),
       List(
-        Comment(uuid.toString,User("@agreeable"), "totally agree", Option(Created()), Option(InitialLike), Nil),
-        Comment(uuid.toString,User("@disagreeable"), "totally disagree", Option(Created())  , Option(InitialDisLike), Nil)
+        Comment(uuid.toString,User("@agreeable"), "totally agree 5", Option(Created()), Option(InitialLike), Nil),
+        Comment(uuid.toString,User("@disagreeable"), "totally disagree 5", Option(Created())  , Option(InitialDisLike), Nil)
       )
     )
 }
