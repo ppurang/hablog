@@ -10,8 +10,8 @@ object ApplicationBuild extends Build {
   val appDependencies = Seq(
     "org.purang" % "hablog-domain_2.9.1" % "0.0.1" withSources(),
     "org.purang" % "hablog-backend_2.9.1" % "0.0.1" withSources(),
-    "org.purang.net" % "asynch_2.9.1" % "0.2.5" withSources(),
-    "kafka" % "kafka" % "0.7.1"from "file:///home/ppurang/.ivy2/local/kafka/core-kafka_2.9.1/0.7.1/jars/kafka.jar",
+    "org.purang.net" % "asynch_2.9.1" % "0.2.5" withSources()
+   , "org.apache.kafka" % "kafka_2.9.1" % "0.8.0",
     "org.apache.zookeeper" % "zookeeper" % "3.3.4" withSources() excludeAll(
         ExclusionRule(organization = "log4j"),
         ExclusionRule(organization = "javax"),
@@ -45,6 +45,8 @@ object ApplicationBuild extends Build {
       //"Local ivy" at Path.userHome.asFile.toURI.toURL + ".ivy2/local"
     )*/
 
-    resolvers ++= Seq(Resolver.file("Local ivy Repository", file(Path.userHome + "/.ivy2/local/"))(Resolver.ivyStylePatterns))
+    resolvers ++= Seq(
+      Resolver.file("Local ivy Repository", file(Path.userHome + "/.ivy2/local/"))(Resolver.ivyStylePatterns)
+    )
   )
 }

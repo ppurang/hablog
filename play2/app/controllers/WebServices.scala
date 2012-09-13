@@ -40,11 +40,12 @@ object WebServices extends Controller {
 
   val riak = new infrastructure.Riak(riakUrl.get)
   val es = new infrastructure.ES(esUrl.get)
-  //val kafka = new infrastructure.Kafka()
+  val kafka = new infrastructure.Kafka()
 
   val mp = org.purang.blog.backend.system.actorOf(Props[BackendMultiplexer], "mp")
   val riakActor = org.purang.blog.backend.system.actorOf(Props(new StoreActor(riak)), "store")
   val esActor = org.purang.blog.backend.system.actorOf(Props(new IndexActor(es)), "index")
+  val ebusActor = org.purang.blog.backend.system.actorOf(Props(new EventBusActor(kafka)), "ebus")
 
   val storeSuccesses = org.purang.blog.backend.system.actorOf(Props(new Successes("STORAGE")), "store-successes")
   val storeFailures = org.purang.blog.backend.system.actorOf(Props(new Failures(("STORAGE"))), "store-failures")
@@ -134,3 +135,4 @@ object WebServices extends Controller {
     }
   }
 }
+E
