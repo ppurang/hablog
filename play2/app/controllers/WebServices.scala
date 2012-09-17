@@ -22,8 +22,7 @@ object WebServices extends Controller {
   import org.purang.net.http.ning._
 
   val esUrl: Option[String] = Play.configuration.getString("es.url")
-  val riakUrl = Play.configuration.getString("riak.url")
-
+  val riakUrl: Option[String] = Play.configuration.getString("riak.url")
 
   private val database = new collection.mutable.HashMap[String, BlogEntry]()
 
@@ -37,15 +36,26 @@ object WebServices extends Controller {
     database(e05.uid) = e05
   }
 
+  val riak : Option[Store] = riakUrl.map(
+    rurl => {
+      val r = new infrastructure.Riak(rurl)
+      org.purang.blog.backend.system.actorOf(Props(new StoreActor(r)), "store")
+      r
+    }
+  )
 
-  val riak = new infrastructure.Riak(riakUrl.get)
-  val es = new infrastructure.ES(esUrl.get)
-  val kafka = new infrastructure.Kafka()
+  val es : Option[Index] = esUrl.map{
+    eurl => {
+      val e = new infrastructure.ES(eurl)
+      org.purang.blog.backend.system.actorOf(Props(new IndexActor(e)), "index")
+      e
+    }
+  }
+
+  //val kafka = new infrastructure.Kafka()
 
   val mp = org.purang.blog.backend.system.actorOf(Props[BackendMultiplexer], "mp")
-  val riakActor = org.purang.blog.backend.system.actorOf(Props(new StoreActor(riak)), "store")
-  val esActor = org.purang.blog.backend.system.actorOf(Props(new IndexActor(es)), "index")
-  val ebusActor = org.purang.blog.backend.system.actorOf(Props(new EventBusActor(kafka)), "ebus")
+  //val ebusActor = org.purang.blog.backend.system.actorOf(Props(new EventBusActor(kafka)), "ebus")
 
   val storeSuccesses = org.purang.blog.backend.system.actorOf(Props(new Successes("STORAGE")), "store-successes")
   val storeFailures = org.purang.blog.backend.system.actorOf(Props(new Failures(("STORAGE"))), "store-failures")
@@ -71,7 +81,7 @@ object WebServices extends Controller {
                 ) yield mvc._2
               })))
             }
-            case (200, _, None, _) => Results.InternalServerError.apply("200 without a body...")
+            case (200, _, None, _) => Results.InternalServerError("200 without a body...")
             case (status, _, body, _) => Results.Status(status).apply(body.getOrElse("No entity body found"))
           }
         )
@@ -81,13 +91,17 @@ object WebServices extends Controller {
   }
 
   def blog(id: String) = Action {
-    val fetch = riak.fetch(id)
-    fetch.fold(
-      ps => Results.InternalServerError(ps.toString)
-      ,
-      x => Ok(BlogEntryJsonSerializer(x)).as("application/json")
-    )
-    //Ok(BlogEntryJsonDeserializer.unapply(database(id))).as("application/json")
+    riak match {
+      case Some(r) => {
+        val fetch = r.fetch(id)
+        fetch.fold(
+          ps => Results.InternalServerError(ps.toString)
+          ,
+          x => Ok(BlogEntryJsonSerializer(x)).as("application/json")
+        )
+      }
+      case _ => Ok(BlogEntryJsonDeserializer.unapply(database(id))).as("application/json")
+    }
   }
 
   def createBlog = Action(parse.tolerantText) {
@@ -120,19 +134,4 @@ object WebServices extends Controller {
    })
     Results.Accepted(uid).withHeaders(LOCATION -> uid)
   }
-
-  //https://gist.github.com/2328236
-  def Secured[A](username: String, password: String)(action: Action[A]) = Action(action.parser) { request =>
-    request.headers.get("Authorization").flatMap { authorization =>
-      authorization.split(" ").drop(1).headOption.filter { encoded =>
-        new String(org.apache.commons.codec.binary.Base64.decodeBase64(encoded.getBytes)).split(":").toList match {
-          case u :: p :: Nil if u == username && password == p => true
-          case _ => false
-        }
-      }.map(_ => action(request))
-    }.getOrElse {
-      Unauthorized.withHeaders("WWW-Authenticate" -> """Basic realm="Secured"""")
-    }
-  }
 }
-E
