@@ -17,7 +17,7 @@ var HaBlog = Em.Application.create({
 /******************************************************/
 
 HaBlog.CONSTANTS = {
-    PATH_CONTEXT : 'http://tech.piyush.purang.net',
+    PATH_CONTEXT : 'http://localhost:9000',
     PATH_BLOG_LIST : '/blog'
 };
 
