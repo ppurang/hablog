@@ -35,8 +35,8 @@ object ZExamples {
       List(Tag("blog"), Tag("writing")),
       Some(InitialLike),
       List(
-        Comment(uuid.toString, User("@agreeable"), "totally agree", Option(Created()), Option(InitialLike), Nil),
-        Comment(uuid.toString,User("@disagreeable"), "totally disagree", Option(Created())  , Option(InitialDisLike), Nil)
+        Comment(uuid.toString, User("@agreeable"), "totally agree", Option(Created()), Option(InitialLike), List(Comment(uuid.toString, User("@disagreeable"), "totally disagree with agreeable", Option(Created()), Option(InitialDisLike), Nil))),
+        Comment(uuid.toString,User("@disagreeable"), "totally disagree", Option(Created())  , Option(InitialDisLike), List(Comment(uuid.toString, User("@agreeable"), "totally disagree with disagreeable", Option(Created()), Option(InitialDisLike), Nil)))
       )
     )
   val e02 = BlogEntry(
