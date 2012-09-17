@@ -58,17 +58,24 @@ https://github.com/paulp/sbt-extras for the sbt script
 TODO
 ========
 
--1. Single blog entry view
-0. Post comments and replies to comments (with twitter integration where comments are markdown enabled)
-1. Make all urls in ember UI configurable (create a blog, get blogs, get a blog, comment on a post, reply to a post) things should include (host, port, base path and some patterns like http://somehost:someport/somebasepath/${somepattern1}/${somepattern2}  where somepatterns are place holders that will differ for different requests (something like uri template))
-2. Make ember.js interact with ES directly  (will need some fake response for test, a flag to switch urls for Ember)
-3. Edit a blog entry (set status, edit content and tags, set modified by time (we will need number of edits, history will be captured, diff comes later))  (ember + (ES + Riak))
-4. Search (boost tags, headline, summary, sections, comments in that order) (ES)
-5. Tags (counts of documents for each tag type) (ES)
+1. Single blog entry view
 
-6. GO LIVE
+2. Post comments and replies to comments (with twitter integration where comments are markdown enabled)
 
-7. Multi user
+3. Make all urls in ember UI configurable (create a blog, get blogs, get a blog, comment on a post, reply to a post) things should include (host, port, base path and some patterns like http://somehost:someport/somebasepath/${somepattern1}/${somepattern2}  where somepatterns are place holders that will differ for different requests (something like uri template))
+
+4. Make ember.js interact with ES directly  (will need some fake response for test, a flag to switch urls for Ember)
+
+5. Edit a blog entry (set status, edit content and tags, set modified by time (we will need number of edits, history will be captured, diff comes later))  (ember + (ES + Riak))
+
+6. Search (boost tags, headline, summary, sections, comments in that order) (ES)
+
+7. Tags (counts of documents for each tag type) (ES)
+
+8. GO LIVE
+
+9. Multi user
+
 60. Monitor usage (views, read more clicks, comments started, comments added, )
 
 
