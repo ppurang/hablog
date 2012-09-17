@@ -15,7 +15,7 @@ import java.util.UUID.{randomUUID => uuid}
 
 object ZExamples {
   val e01 = BlogEntry(
-      HintedUUIDUniqueIdGenerator("First *blog post* ever"),
+      "First-blog-post-ever_6c8b79f7-6d54-40a5-bcf0-235966e11111",
       Nascent,
       Option(Created(1343224588265l)),
       None,
@@ -40,7 +40,7 @@ object ZExamples {
       )
     )
   val e02 = BlogEntry(
-      HintedUUIDUniqueIdGenerator("Second *blog post* ever"),
+      "Second-blog-post-ever_6c8b79f7-6d54-40a5-bcf0-235966e22222",
       Nascent,
       Option(Created(1343224588265l)),
       None,
@@ -65,7 +65,7 @@ object ZExamples {
       )
     )
   val e03 = BlogEntry(
-      HintedUUIDUniqueIdGenerator("Third *blog post* ever"),
+    "Third-blog-post-ever_6c8b79f7-6d54-40a5-bcf0-235966e33333",
       Nascent,
       Option(Created(1343224588265l)),
       None,
@@ -90,7 +90,7 @@ object ZExamples {
       )
     )
   val e04 = BlogEntry(
-      HintedUUIDUniqueIdGenerator("Fourth *blog post* ever"),
+      "Fourth-blog-post-ever_6c8b79f7-6d54-40a5-bcf0-235966e44444",
       Nascent,
       Option(Created(1343224588265l)),
       None,
@@ -115,7 +115,7 @@ object ZExamples {
       )
     )
   val e05 = BlogEntry(
-      HintedUUIDUniqueIdGenerator("Fifth *blog post* ever"),
+      "Fifth-blog-post-ever_6c8b79f7-6d54-40a5-bcf0-235966e55555",
       Nascent,
       Option(Created(1343224588265l)),
       None,
