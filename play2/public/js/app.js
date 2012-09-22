@@ -29,7 +29,9 @@ HaBlog.GetItemsFromServer = function () {
             data.map(function(item) {
                 //console.log(item);
 
-                var post = HaBlog.Post.create();
+                var post = HaBlog.CreatePostFromJSon(item);
+
+                /*var post = HaBlog.Post.create();
 
                 post.set('uid', item.uid);
                 post.set('headline', HaBlog.Utilities.Showdown.makeHtml(item.headline.content));
@@ -39,7 +41,7 @@ HaBlog.GetItemsFromServer = function () {
                 post.set('sections', HaBlog.ParseSections(item.content));
                 post.set('tags', item.tags);
                 post.set('comments', HaBlog.ParseComments(item.comments));
-                post.set('created', moment(item.created.time));
+                post.set('created', moment(item.created.time));*/
 
                 HaBlog.postListController.addPost(post);
             });
@@ -58,7 +60,7 @@ HaBlog.CreatePostFromJSon = function (item){
     post.set('title', HaBlog.Utilities.Showdown.makeHtml(item.title.content));
     post.set('author', item.author);
     post.set('summary', HaBlog.Utilities.Showdown.makeHtml(item.summary.content));
-    post.set('sections', HaBlog.ParseSections(item.content.sections));
+    post.set('sections', HaBlog.ParseSections(item.content));
     post.set('tags', item.tags);
     post.set('comments', HaBlog.ParseComments(item.comments));
     post.set('created', moment(item.created.time));
@@ -96,7 +98,19 @@ HaBlog.ParseComments = function (jsonContent){
                 likes: item.rating === undefined ? 0 : item.rating.likes === undefined ? 0 : item.rating.likes,
                 dislikes: item.rating === undefined ? 0 : item.rating.dislikes === undefined ? 0 : item.rating.dislikes
             }),
-            replies: HaBlog.ParseComments(item.replies)
+            replies: HaBlog.ParseComments(item.replies),
+            totalReplies: function(){
+                var total = 0;
+                var commentReplies = this.get('replies')
+                var repliesLength = commentReplies.length
+                for (var i = 0; i < repliesLength; ++i) {
+                    if (i in commentReplies) {
+                        var reply = commentReplies[i];
+                        total = total + reply.get('totalReplies') + 1;
+                    }
+                }
+                return total;
+            }.property()
         });
         comments.push(comment);
     });
@@ -126,11 +140,20 @@ HaBlog.Post = Em.Object.extend({
     }.property('created'),
     summary:null,
     sections:null,
-    tags:null,
+    tags:[],
     rating:null,
     comments:null,
-    commentsCount: function() {
-        return(this.get('comments').get('length'));
+    commentsCount: function(){
+        var total = 0;
+        var commentsArray = this.get('comments');
+        var commentsLength = commentsArray.length;
+        for (var i = 0; i < commentsLength; ++i) {
+            if (i in commentsArray) {
+                var comment = commentsArray[i];
+                total = total + comment.get('totalReplies') + 1;
+            }
+        }
+        return total;
     }.property('comments')
 });
 
@@ -149,7 +172,8 @@ HaBlog.Comment = Em.Object.extend({
         return (this.get('created').fromNow());
     }.property('created'),
     rating:null,
-    replies:[]
+    replies:[],
+    totalReplies:0
 });
 
 // RATING COMPONENT
@@ -208,10 +232,6 @@ HaBlog.PostListController = Ember.ArrayController.extend({
 // Define the main application controller. This is automatically picked up by
 // the application and initialized.
 HaBlog.PostController = Ember.ObjectController.extend({
-    postedAgo: function(){
-        console.log("here");
-        return "hey";
-    }
 });
 
 /******************************************************/

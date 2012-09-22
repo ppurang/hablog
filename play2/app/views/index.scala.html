@@ -86,76 +86,6 @@
 </script>
 
 
-
-<!-- FULL POST TEMPLATE -->
-<script type="text/x-handlebars" data-template-name="post">
-    <article>
-        <div class="post span11">
-
-            <!-- POST HEADER -->
-            <header>
-                <div class="postDate">
-                    <span class="day">{{creationDay}}</span>
-                    <span class="month">{{creationMonth}}</span>
-                    <span class="year">{{creationYear}}</span>
-                </div>
-                <div class="postTitle">
-                    <span><h1>{{{title}}}</h1></span>
-                    <small>
-                        <span class="comments">
-                            <i class="icon-comment"> </i>
-                            <span>{{commentsCount}}</span>
-                        </span>
-                        <span class="tags">
-                            <i class="icon-tags"> </i>
-                                <span>
-                                    {{#each tags}}
-                                        <a href="#">{{tag}}</a>
-                                    {{/each}}
-                                </span>
-                        </span>
-                        <span class="author">
-                            Posted by <a href="#">{{author}}</a>
-                        </span>
-                    </small>
-                </div>
-            </header>
-
-            <!-- POST CONTENT -->
-            <div class="postContent">
-                <p>{{{summary}}}</p>
-                {{#each sections}}
-                {{#if headline}}
-                <span><h2>{{{headline}}}</h2></span>
-                {{/if}}
-                <p>{{{text}}}</p>
-                {{/each}}
-                </section>
-                <div class="clear" style="float:clear"></div>
-            </div>
-
-        </div>
-
-        <!-- POST COMMENTS -->
-        <div id="postComments" class="span10">
-            <h1>Comments</h1>
-            {{#each comments}}
-            <div class="comment">
-                <small>
-                    <span class="commentDate">
-                        {{createdAgo}}
-                    </span>
-                </small>
-                    <span class="commentText">
-                        {{text}}
-                    </span>
-            </div>
-            {{/each}}
-        </div>
-
-    </article>
-</script>
-
 <!-- POST LIST TEMPLATE -->
 <script type="text/x-handlebars" data-template-name="postList">
     {{#each HaBlog.postListController}}
@@ -212,6 +142,85 @@
     {{/each}}
 </script>
 
+<!-- FULL POST TEMPLATE -->
+<script type="text/x-handlebars" data-template-name="post">
+    <article>
+        <div class="post span11">
+
+            <!-- POST HEADER -->
+            <header>
+                <div class="postDate">
+                    <span class="day">{{creationDay}}</span>
+                    <span class="month">{{creationMonth}}</span>
+                    <span class="year">{{creationYear}}</span>
+                </div>
+                <div class="postTitle">
+                    <span><h1>{{{title}}}</h1></span>
+                    <small>
+                        <span class="comments">
+                            <i class="icon-comment"> </i>
+                            <span>{{commentsCount}}</span>
+                        </span>
+                        <span class="tags">
+                            <i class="icon-tags"> </i>
+                                <span>
+                                    {{#each tags}}
+                                        <a href="#">{{tag}}</a>
+                                    {{/each}}
+                                </span>
+                        </span>
+                        <span class="author">
+                            Posted by <a href="#">{{author}}</a>
+                        </span>
+                    </small>
+                </div>
+            </header>
+
+            <!-- POST CONTENT -->
+            <div class="postContent">
+                <p>{{{summary}}}</p>
+                {{#each sections}}
+                {{#if headline}}
+                <span><h2>{{{headline}}}</h2></span>
+                {{/if}}
+                <p>{{{text}}}</p>
+                {{/each}}
+                </section>
+                <div class="clear" style="float:clear"></div>
+            </div>
+
+        </div>
+
+        <!-- POST COMMENTS -->
+        <div id="postComments" class="span10">
+            <h1>Comments</h1>
+            {{#each comments}}
+                <div class="comment">
+                    <small>
+                        <span class="commentDate">
+                            {{createdAgo}}
+                        </span>
+                    </small>
+                        <span class="commentText">
+                            {{text}}
+                        </span>
+                </div>
+                {{#each replies}}
+                <div class="comment reply">
+                    <small>
+                        <span class="commentDate">
+                            {{createdAgo}}
+                        </span>
+                    </small>
+                        <span class="commentText">
+                            {{text}}
+                        </span>
+                </div>
+                {{/each}}
+            {{/each}}
+        </div>
+    </article>
+</script>
 
 <!-- The missing protocol means that it will match the current protocol, either http or https. If running locally, we use the local jQuery. -->
 <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>

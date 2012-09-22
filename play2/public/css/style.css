@@ -524,3 +524,7 @@ h1 {
     float: right;
     border-bottom: 1px solid #D6CDCD;
 }
+
+#postComments .reply{
+    margin-left: 50px;
+}
