@@ -10,7 +10,7 @@ var HaBlog = Em.Application.create({
 /******************************************************/
 
 HaBlog.CONSTANTS = {
-    PATH_CONTEXT : 'http://localhost:9000',
+    PATH_CONTEXT : 'http://tech.piyush.purang.net',
     PATH_BLOG_LIST : '/blog'
 };
 
@@ -23,25 +23,13 @@ HaBlog.GetItemsFromServer = function () {
     $.ajax({
         url:HaBlog.CONSTANTS.PATH_CONTEXT+HaBlog.CONSTANTS.PATH_BLOG_LIST,
         async:false,
+        dataType:'json',
         success: function(data) {
             // Use map to iterate through the items and create a new JSON object for
             // each item
             data.map(function(item) {
-                //console.log(item);
 
                 var post = HaBlog.CreatePostFromJSon(item);
-
-                /*var post = HaBlog.Post.create();
-
-                post.set('uid', item.uid);
-                post.set('headline', HaBlog.Utilities.Showdown.makeHtml(item.headline.content));
-                post.set('title', HaBlog.Utilities.Showdown.makeHtml(item.title.content));
-                post.set('author', item.author);
-                post.set('summary', HaBlog.Utilities.Showdown.makeHtml(item.summary.content));
-                post.set('sections', HaBlog.ParseSections(item.content));
-                post.set('tags', item.tags);
-                post.set('comments', HaBlog.ParseComments(item.comments));
-                post.set('created', moment(item.created.time));*/
 
                 HaBlog.postListController.addPost(post);
             });
