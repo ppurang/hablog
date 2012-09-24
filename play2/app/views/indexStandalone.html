@@ -19,9 +19,9 @@
     <link rel="shortcut icon" href="/favicon.ico">
 
     <link rel="stylesheet" href="../../public/css/bootstrap.css?v=1">
-     <link rel="stylesheet" href="../../public/css/bootstrap-responsive.css?v=1">
-     <link rel="stylesheet" href="../../public/css/style.css?v=2">
-     <link rel="stylesheet" href="../../public/css/ie-style.css?v=1">
+    <link rel="stylesheet" href="../../public/css/bootstrap-responsive.css?v=1">
+    <link rel="stylesheet" href="../../public/css/style.css?v=2">
+    <link rel="stylesheet" href="../../public/css/ie-style.css?v=1">
 
 
     <!--<link rel="stylesheet" href="@routes.Assets.at("css/bootstrap.css?v=1")">
@@ -194,23 +194,58 @@
 
         </div>
 
-        <!-- POST COMMENTS -->
+        <!-- LIST OF COMMENTS -->
         <div id="postComments" class="span10">
             <h1>Comments</h1>
-            {{#each comments}}
-            <div class="comment">
-                <small>
-                    <span class="commentDate">
-                        {{createdAgo}}
-                    </span>
-                </small>
-                    <span class="commentText">
-                        {{text}}
-                    </span>
-            </div>
-            {{/each}}
-        </div>
+            <ul class="comment-list">
+                {{#each comments}}
+                <li class="comment">
+                    <div class="comment-content">
+                        <div class="avatar">
+                            <a href="#" class="user">
+                                <img src="http://www.gravatar.com/avatar/95626d0ddd894ee89ddc4ca1a099bdce?s=40" alt="Avatar" />
+                            </a>
+                        </div>
+                        <div class="comment-body">
+                            <header>
+                                <span class="comment-author">
+                                    <a href="#">Name here</a>
 
+                                </span>
+                                <span class="bullet" aria-hidden="true">•</span>
+                                <span class="comment-date">{{createdAgo}}</span>
+                            </header>
+                            <div class="comment-text">
+                                {{text}}
+                            </div>
+                        </div>
+
+                        <!-- LIST OF REPLIES FOR THIS COMMENT -->
+                        <ul class="replies">
+                            {{#each replies}}
+                            <li>
+                                <div class="comment reply">
+                                    <div class="avatar">
+                                        <a href="#" class="user">
+                                            <img src="http://www.gravatar.com/avatar/95626d0ddd894ee89ddc4ca1a099bdce?s=40" alt="Avatar" />
+                                        </a>
+                                    </div>
+                                    <div class="comment-author">
+                                        <p>Name here</p>
+                                        <span class="comment-date">{{createdAgo}}</span>
+                                    </div>
+                                    <div class="comment-text">
+                                        {{text}}
+                                    </div>
+                                </div>
+                            </li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
     </article>
 </script>
 

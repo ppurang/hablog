@@ -207,14 +207,16 @@
                 </div>
                 {{#each replies}}
                 <div class="comment reply">
-                    <small>
-                        <span class="commentDate">
+
+                        <div class="commentDate">
+                            <small>
                             {{createdAgo}}
-                        </span>
-                    </small>
-                        <span class="commentText">
+                            </small>
+                        </div>
+
+                        <div class="commentText">
                             {{text}}
-                        </span>
+                        </div>
                 </div>
                 {{/each}}
             {{/each}}
