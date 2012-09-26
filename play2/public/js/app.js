@@ -267,7 +267,12 @@ HaBlog.Router = Ember.Router.extend({
             connectOutlets: function(router, post) {
                 console.log("redirecting to post")
                 var targetPost = HaBlog.postListController.findProperty('uid', post.uid);
-                router.get('applicationController').connectOutlet('post', targetPost);
+                if (Ember.none(targetPost)){
+                    //go to main page if the post doesn't exist
+                    router.transitionTo('posts');
+                }else{
+                    router.get('applicationController').connectOutlet('post', targetPost);
+                }
             }
         })
     })
