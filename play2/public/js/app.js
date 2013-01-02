@@ -4,6 +4,10 @@
 var HaBlog = Em.Application.create({
 });
 
+HaBlog.ready = function(){
+
+}
+
 
 /******************************************************/
 /*				CONSTANTS							  */
@@ -236,7 +240,11 @@ HaBlog.PostView = Em.View.extend({
 });
 
 HaBlog.ApplicationView = Ember.View.extend({
-    templateName: 'application'
+    templateName: 'application',
+    //Theme UI initialization if needed after the application view rendered the basic template
+    didInsertElement: function(){
+        theme_initialize();
+    }
 });
 
 
