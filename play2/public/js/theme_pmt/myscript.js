@@ -1,14 +1,4 @@
-$(document).ready(function(){	
-
-
-
-
-							
-});
-
 function theme_initialize(){
-
-    debugger;
     //build dropdown
     $("<select />").appendTo("nav#main_menu div");
 
